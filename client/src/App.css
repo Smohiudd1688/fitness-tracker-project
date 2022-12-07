@@ -3,7 +3,7 @@ body{
   color: rgb(247, 247, 247);
 }
 
-h2{
+h1, p{
   text-align: center;
 }
 
@@ -14,3 +14,22 @@ h2{
 #progress{
   height: 50px;
 }
+
+.logForms{
+  text-align: center;
+  background-color: rgba(16, 109, 11, 0.181);
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 3%;
+  border-radius: 5%;
+}
+
+label{
+  margin-right: 3%;
+}
+
+.logButton{
+  text-decoration: underline;
+  cursor: pointer;
+}
+

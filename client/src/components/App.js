@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from './NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from '../pages/Home';
 import Workouts from '../pages/Workouts';
 import Account from '../pages/Account';
+import Login from '../pages/Login';
 import '../App.css';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // auto-login
+    fetch("/api/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  //if (!user) return <Login onLogin={setUser} />;
+
   return (
     <div className="App">
       <NavBar />

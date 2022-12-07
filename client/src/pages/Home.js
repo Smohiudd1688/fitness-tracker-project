@@ -13,7 +13,7 @@ function Home() {
                 <h3 className="header">Welcome back, username!</h3>
             </Row><br></br>
             <Row>
-                <h2 className="header">Weekly Workout Progress</h2>
+                <h1 className="header">Weekly Workout Progress</h1>
             </Row><br></br>
             <Row>
                 <Col>
