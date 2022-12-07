@@ -18,7 +18,7 @@ function LoginForm() {
 
     return (
         <form className="logForms" onSubmit={handleShowSubmit}>
-            <h3>Log In to The Fit Life</h3>
+            <h3>Sign In to The Fit Life</h3>
             <label htmlFor="username">Username: </label>
             <input onChange={handleUsernameChange} type="text" id="username" name="username" value={username} /><br></br><br></br>
             <label htmlFor="pass">Password: </label>

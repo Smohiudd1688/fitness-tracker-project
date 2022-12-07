@@ -15,7 +15,7 @@ function Login(onLogin) {
             {hasLogin ? <LoginForm /> : <SignupForm />} <br></br>
             {hasLogin ? 
                 <p>Don't have an account? <em onClick={handleHasLoginChange} className="logButton">Sign up</em></p> : 
-                <p>Already have an account? <em onClick={handleHasLoginChange}  className="logButton">Log in</em></p>
+                <p>Already have an account? <em onClick={handleHasLoginChange}  className="logButton">Sign in</em></p>
             }
         </div>
     );
