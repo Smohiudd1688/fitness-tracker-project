@@ -7,6 +7,10 @@ function UpdateGoalForm() {
     function handleGoalUpdate() {
 
     }
+
+    function handleFirstNameChange() {
+
+    }
     return (
         <OverlayTrigger
             trigger="click"
@@ -17,8 +21,8 @@ function UpdateGoalForm() {
                     <Popover.Header as="h3">{`Update Goal`}</Popover.Header>
                     <Popover.Body>
                         <form>
-                            <label htmlFor="">First Name: </label>
-                            <input onChange={handleFirstNameChange} type="text" id="fname" name="fname" value={firstName} />
+                            <label htmlFor="current">Where are you currently at? </label>
+                            <input onChange={handleFirstNameChange} type="text" id="current" name="current" value="" />
                         </form>
                     </Popover.Body>
                 </Popover>

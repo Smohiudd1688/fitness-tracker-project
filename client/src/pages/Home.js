@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import GoalItem from "../components/GoalItem";
+import GoalForm from "../Forms/GoalForm";
 
 
 function Home() {
@@ -74,6 +75,9 @@ function Home() {
             </Row>
             <Row id="goalRow">
                 {renderCards}
+            </Row>
+            <Row>
+                <GoalForm />
             </Row>
         </Container>
     );
