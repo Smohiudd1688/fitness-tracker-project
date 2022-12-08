@@ -8,7 +8,7 @@ function SignupForm() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [weeklyGoal, setWeeklyGoal] = useState();
 
-    function handleShowSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
     }
 
@@ -37,7 +37,7 @@ function SignupForm() {
     }
 
     return (
-        <form className="logForms" onSubmit={handleShowSubmit}>
+        <form className="logForms" onSubmit={handleSubmit}>
             <h3>Sign Up for The Fit Life</h3>
             <label htmlFor="fname">First Name: </label>
             <input onChange={handleFirstNameChange} type="text" id="fname" name="fname" value={firstName} /><br></br><br></br>

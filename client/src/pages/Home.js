@@ -3,34 +3,41 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import GoalArea from "../components/GoalArea";
+import GoalItem from "../components/GoalItem";
 
 
 function Home() {
     const goals = [
         {
-            name: "Lose Weight",
+            title: "Lose Weight",
             starting: 170,
             current: 160,
             goal: 140,
             endDate: "January 21, 2022"
         },
         {
-            name: "Lose Weight",
+            title: "Lose Weight",
             starting: 170,
             current: 160,
             goal: 140,
             endDate: "January 21, 2022"
         },
         {
-            name: "Lose Weight",
+            title: "Lose Weight",
             starting: 170,
             current: 160,
             goal: 140,
             endDate: "January 21, 2022"
         },
         {
-            name: "Lose Weight",
+            title: "Lose Weight",
+            starting: 170,
+            current: 160,
+            goal: 140,
+            endDate: "January 21, 2022"
+        },
+        {
+            title: "Lose Weight",
             starting: 170,
             current: 160,
             goal: 140,
@@ -38,9 +45,15 @@ function Home() {
         }
     ]
 
-    const renderCards = () => {
-        for (let i = 0; i < goals.length; i++)
-    }
+    const renderCards = goals.map(goal => {
+        return <Col><GoalItem 
+                        title={goal.title}
+                        starting={goal.starting}
+                        current={goal.current}
+                        goal={goal.goal}
+                        endDate={goal.endDate}
+        /></Col>
+    });
 
     return (
         <Container fluid="xxl">
@@ -53,13 +66,15 @@ function Home() {
             </Row>
             <Row>
                 <Col>
-                    <ProgressBar id="progress" variant="success" animated now={40} />
+                    <ProgressBar id="progress" animated now={40} />
                 </Col>
             </Row><br></br>
             <Row>
                 <h1 className="header">Current Goals</h1>
             </Row>
-            <GoalArea />
+            <Row id="goalRow">
+                {renderCards}
+            </Row>
         </Container>
     );
 }

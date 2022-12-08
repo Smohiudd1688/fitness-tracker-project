@@ -18,7 +18,7 @@ h1, .logPage{
 
 .logForms{
   text-align: center;
-  background-color: rgba(16, 109, 11, 0.181);
+  background-color: rgba(16, 70, 114, 0.511);
   margin-left: 25%;
   margin-right: 25%;
   padding: 3%;
@@ -37,4 +37,13 @@ label{
 
 .row {
   margin-bottom: 3%;
+}
+
+#goalRow{
+  max-width: 90%;
+  margin-left: 5%;
+}
+
+#delete{
+  margin-left: 2%;
 }
