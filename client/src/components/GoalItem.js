@@ -5,10 +5,15 @@ import UpdateGoalForm from "../Forms/UpdateGoalForm";
 
 
 function GoalItem({title, starting, current, goal, endDate}) {
-  const [isUpdateClick, setIsUpdateClick] = useState(false);
+    const [isCompleted, setIsComplete] = useState(false);
 
-    function handleGoalUpdate() {
-      setIsUpdateClick(!isUpdateClick);
+    function handleUpdateSubmit(updatedCurrent) {
+      if(starting > goal && updatedCurrent <= goal) {
+        alert("Completed");
+      } else if (starting < goal && updatedCurrent >= goal) {
+        alert("Completed");
+      }
+      
     }
 
     return (
@@ -23,8 +28,7 @@ function GoalItem({title, starting, current, goal, endDate}) {
                     <strong>When you want to achieve it:</strong> {endDate}
                   </Card.Text>
                   <UpdateGoalForm 
-                    current={current}
-                    endDate={endDate}
+                    onUpdateSubmit={handleUpdateSubmit}
                   />
                   <Button variant="outline-primary" id="delete">Delete Goal</Button>
                 </Card.Body>

@@ -10,6 +10,7 @@ import GoalForm from "../Forms/GoalForm";
 function Home() {
     const goals = [
         {
+            id: 1,
             title: "Lose Weight",
             starting: 170,
             current: 160,
@@ -17,6 +18,7 @@ function Home() {
             endDate: "January 21, 2022"
         },
         {
+            id: 2,
             title: "Lose Weight",
             starting: 170,
             current: 160,
@@ -24,6 +26,7 @@ function Home() {
             endDate: "January 21, 2022"
         },
         {
+            id: 3,
             title: "Lose Weight",
             starting: 170,
             current: 160,
@@ -31,6 +34,7 @@ function Home() {
             endDate: "January 21, 2022"
         },
         {
+            id: 4,
             title: "Lose Weight",
             starting: 170,
             current: 160,
@@ -38,6 +42,7 @@ function Home() {
             endDate: "January 21, 2022"
         },
         {
+            id: 5,
             title: "Lose Weight",
             starting: 170,
             current: 160,
@@ -48,6 +53,7 @@ function Home() {
 
     const renderCards = goals.map(goal => {
         return <Col><GoalItem 
+                        key={goal.id}
                         title={goal.title}
                         starting={goal.starting}
                         current={goal.current}
