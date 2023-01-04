@@ -43,10 +43,10 @@ function Home() {
         },
         {
             id: 5,
-            title: "Lose Weight",
-            starting: 170,
-            current: 160,
-            goal: 140,
+            title: "Gain Weight",
+            starting: 140,
+            current: 150,
+            goal: 160,
             endDate: "January 21, 2022"
         }
     ]

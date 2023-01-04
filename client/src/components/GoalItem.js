@@ -2,18 +2,16 @@ import React, {useState} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import UpdateGoalForm from "../Forms/UpdateGoalForm";
+import CompletedGoalItem from "./CompletedGoalItem";
 
 
 function GoalItem({title, starting, current, goal, endDate}) {
     const [isCompleted, setIsComplete] = useState(false);
 
     function handleUpdateSubmit(updatedCurrent) {
-      if(starting > goal && updatedCurrent <= goal) {
-        alert("Completed");
-      } else if (starting < goal && updatedCurrent >= goal) {
-        alert("Completed");
-      }
-      
+      if(starting > goal && updatedCurrent <= goal || starting < goal && updatedCurrent >= goal) {
+        alert("completed");
+      }  
     }
 
     return (
