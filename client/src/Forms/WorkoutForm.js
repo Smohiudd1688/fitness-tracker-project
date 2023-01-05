@@ -41,6 +41,12 @@ function WorkoutForm() {
         console.log(exercises);
     }
 
+    function handleRemove(index) {
+        exercises.splice(index, 1);
+        setExercises([...exercises]);
+        console.log(exercises);
+    }
+
     return(
         <form className="workoutForm" onSubmit={handleSubmit}>
             <h3>Add a Workout</h3><br></br>
@@ -60,9 +66,10 @@ function WorkoutForm() {
                             <input className="setrep" onChange={(event) => handleExerciseChange(event, index, "reps")}  
                             id="rep" name="rep" value={exercise.reps} />
                             <label htmlFor="exercise">Exercise Name </label>
-                            <input id="exName" onChange={(event) => handleExerciseChange(event, index, "name")}  
+                            <input onChange={(event) => handleExerciseChange(event, index, "name")}  
                             id="exercise" name="exercise" value={exercise.name} />
-                            <p>x</p>
+                            <p onClick={() => handleRemove(index)} id="delete" style={{display:"inline"}}><strong>X</strong></p>
+                            
                         </div>
                     )
                 })

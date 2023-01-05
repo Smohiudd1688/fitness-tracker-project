@@ -87,6 +87,10 @@ label{
   text-align: center;
 }
 
-#exName {
-  width: 60px;
+#exercise {
+  margin-right: 2%;
+}
+
+#delete {
+  cursor: pointer;
 }
