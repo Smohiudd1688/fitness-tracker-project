@@ -31,6 +31,11 @@ function WorkoutForm() {
         setExercises([...exercises, ""]);
     }
 
+    function handleExerciseChange(event, index) {
+        exercises[index] = event.target.value;
+        setExercises([...exercises]);
+    }
+
     return(
         <form className="goalForm" onSubmit={handleSubmit}>
             <h3>Add a Workout</h3><br></br>
@@ -39,6 +44,16 @@ function WorkoutForm() {
             <label htmlFor="goal">Time to Complete Workout: </label>
             <input onChange={handleTimeChange} type="text" id="time" name="time" value={time} /><br></br><br></br>
             <hr></hr>
+            {
+                exercises.map((exercise, index) => {
+                    return (
+                        <div key={index}>
+                            <input onChange={(event) => handleExerciseChange(event, index)}  
+                            value={exercise} />
+                        </div>
+                    )
+                })
+            }
             <button onClick={handleAddExercise}>Add Exercise</button>
             <hr></hr>
             <label htmlFor="start">Date Workout was completed: </label>
