@@ -27,7 +27,7 @@ h1, .logPage{
 }
 
 label{
-  margin-right: 3%;
+  margin-right: 1%;
 }
 
 .logButton{
@@ -48,10 +48,45 @@ label{
   margin-left: 2%;
 }
 
-.goalForm {
+.goalForm, .workoutForm {
   width: 40%;
   background-color: rgba(39, 39, 39, 0.407);
   padding: 2%;
   color: rgb(247, 247, 247);
   margin-left: 30%;
+}
+
+.workoutForm {
+  margin-top: 3%;
+}
+
+.setrep {
+  width: 25px;
+  margin-right: 3%;
+}
+
+#exer {
+  margin-bottom: 2%;
+}
+
+#workoutCard {
+  margin-top: 2%;
+  margin-right: 25%;
+  margin-left: 25%;
+}
+
+#workoutCard p {
+  font-size: smaller;
+}
+
+#workoutHead {
+  margin-top: 2%;
+}
+
+#list {
+  text-align: center;
+}
+
+#exName {
+  width: 60px;
 }

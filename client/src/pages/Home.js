@@ -51,7 +51,7 @@ function Home() {
         }
     ]
 
-    const renderCards = goals.map(goal => {
+    const renderGoals = goals.map(goal => {
         return <Col><GoalItem 
                         key={goal.id}
                         title={goal.title}
@@ -80,7 +80,7 @@ function Home() {
                 <h1 className="header">Current Goals</h1>
             </Row>
             <Row id="goalRow">
-                {renderCards}
+                {renderGoals}
             </Row>
             <Row>
                 <GoalForm />

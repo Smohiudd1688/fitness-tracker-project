@@ -28,28 +28,41 @@ function WorkoutForm() {
     }
 
     function handleAddExercise(event) {
-        setExercises([...exercises, ""]);
+        setExercises([...exercises, {
+            name: "",
+            sets: "",
+            reps: ""
+        }]);
     }
 
-    function handleExerciseChange(event, index) {
-        exercises[index] = event.target.value;
+    function handleExerciseChange(event, index, property) {
+        exercises[index][property] = event.target.value;
         setExercises([...exercises]);
+        console.log(exercises);
     }
 
     return(
-        <form className="goalForm" onSubmit={handleSubmit}>
+        <form className="workoutForm" onSubmit={handleSubmit}>
             <h3>Add a Workout</h3><br></br>
             <label htmlFor="name">Name of Workout: </label>
             <input onChange={handleNameChange} type="text" id="name" name="name" value={name} /><br></br><br></br>
-            <label htmlFor="goal">Time to Complete Workout: </label>
+            <label htmlFor="goal">Duration of Workout in Minutes: </label>
             <input onChange={handleTimeChange} type="text" id="time" name="time" value={time} /><br></br><br></br>
             <hr></hr>
             {
                 exercises.map((exercise, index) => {
                     return (
-                        <div key={index}>
-                            <input onChange={(event) => handleExerciseChange(event, index)}  
-                            value={exercise} />
+                        <div id="exer" key={index}>
+                            <label htmlFor="set">Sets </label>
+                            <input className="setrep" onChange={(event) => handleExerciseChange(event, index, "sets")}  
+                            id="set" name="set" value={exercise.sets} />
+                            <label htmlFor="rep">Reps </label>
+                            <input className="setrep" onChange={(event) => handleExerciseChange(event, index, "reps")}  
+                            id="rep" name="rep" value={exercise.reps} />
+                            <label htmlFor="exercise">Exercise Name </label>
+                            <input id="exName" onChange={(event) => handleExerciseChange(event, index, "name")}  
+                            id="exercise" name="exercise" value={exercise.name} />
+                            <p>x</p>
                         </div>
                     )
                 })
