@@ -49,7 +49,7 @@ function SignupForm() {
             <input onChange={handlePassChange} type="text" id="pass" name="pass" value={password} /><br></br><br></br>
             <label htmlFor="confirmPass">Confirm Password: </label>
             <input onChange={handleConfirmPassChange} type="text" id="confirmPass" name="confirmPass" value={confirmPassword} /><br></br><br></br>
-            <label htmlFor="weeklyGoal">Amount of Workouts Per Week Goal: </label>
+            <label htmlFor="weeklyGoal">Monthly Workout Goal: </label>
             <input onChange={handleWeeklyGoalChange} type="text" id="weeklyGoal" name="weeklyGoal" value={weeklyGoal} /><br></br><br></br>
             <input type="submit" />
         </form>

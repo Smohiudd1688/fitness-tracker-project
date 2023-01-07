@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
+import Button from 'react-bootstrap/Button';
 
 function Workouts() {
+    const [showAll, setShowAll] = useState(false);
+
     const workouts = [
         {
             id: 1,
@@ -20,7 +23,8 @@ function Workouts() {
                     sets: 4,
                     reps: 8
                 }
-            ]
+            ],
+            user: "smohiudd"
         },
         {
             id: 2,
@@ -38,9 +42,14 @@ function Workouts() {
                     sets: 4,
                     reps: 8
                 }
-            ]
+            ],
+            user: "smohiudd"
         }
     ];
+
+    function handleClick() {
+        setShowAll(!showAll)
+    }
 
     const renderWorkouts = workouts.map(workout => {
         return <WorkoutItem 
@@ -49,12 +58,14 @@ function Workouts() {
                         time={workout.time}
                         date={workout.date}
                         exercises={workout.exercises}
+                        user={workout.user}
         />
     });
 
     return (
         <div>
-            <h1 id="workoutHead">Workout Tracker</h1>
+            <h1 className="pageH">Workout Tracker</h1><br></br>
+            <Button id="showAll" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button>
             {renderWorkouts}
             <WorkoutForm />
         </div>

@@ -69,7 +69,7 @@ function Home() {
                 <h3 className="header">Welcome back, name!</h3>
             </Row>
             <Row>
-                <h1 className="header">Weekly Workout Progress</h1>
+                <h1 className="header">Monthly Workout Progress</h1>
             </Row>
             <Row>
                 <Col>

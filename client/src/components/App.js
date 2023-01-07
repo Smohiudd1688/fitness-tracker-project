@@ -10,6 +10,17 @@ import '../App.css';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [firstName, setFirstName] = useState("Sana");
+  const [lastName, setLastName] = useState("Mohiuddin");
+  const [username, setUsername] = useState("smohiudd");
+  const [monthlyGoal, setMonthlyGoal] = useState(20);
+
+  const userInfo = {
+    firstName: "Sana",
+    lastName: "Mohiuddin",
+    username: "smohiudd",
+    monthlyGoal: 20
+  }
 
   useEffect(() => {
     // auto-login
@@ -20,7 +31,17 @@ function App() {
     });
   }, []);
 
-  //if (!user) return <Login onLogin={setUser} />;
+  if (!user) return <Login onLogin={setUser} />;
+
+  function handleAccountChange(property, value) {
+    if (property === "firstName") setFirstName(value);
+    if (property === "lastName") setLastName(value);
+    if (property === "monthlyGoal") setMonthlyGoal(value);
+  }
+
+  function handleAccountUpdate() {
+    
+  }
 
   return (
     <div className="App">
@@ -31,7 +52,13 @@ function App() {
             <Workouts />
           </Route>
           <Route path="/account" >
-            <Account />
+            <Account 
+              fname={firstName} 
+              lname={lastName} 
+              username={username} 
+              monthlyGoal={monthlyGoal} 
+              onChangeAccount={handleAccountChange}
+            />
           </Route>
           <Route exact path="/" >
             <Home />
