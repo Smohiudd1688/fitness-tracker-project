@@ -9,11 +9,11 @@ import Login from '../pages/Login';
 import '../App.css';
 
 function App() {
-  const [user, setUser] = useState(null);
   const [firstName, setFirstName] = useState("Sana");
   const [lastName, setLastName] = useState("Mohiuddin");
   const [username, setUsername] = useState("smohiudd");
   const [monthlyGoal, setMonthlyGoal] = useState(20);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const userInfo = {
     firstName: "Sana",
@@ -26,12 +26,12 @@ function App() {
     // auto-login
     fetch("/api/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((currentUser) => setCurrentUser(currentUser));
       }
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  if (!currentUser) return <Login onLogin={setCurrentUser} setCurrentUser={setCurrentUser} />;
 
   function handleAccountChange(property, value) {
     if (property === "firstName") setFirstName(value);

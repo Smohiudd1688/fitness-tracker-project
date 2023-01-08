@@ -1,15 +1,37 @@
 import React, {useState} from "react";
 
-function SignupForm() {
+function SignupForm({setCurrentUser}) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [weeklyGoal, setWeeklyGoal] = useState();
+    const [monthlyGoal, setMonthlyGoal] = useState();
+    const [errors, setErrors] = useState("");
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const user = {
+            first_name: firstName,
+            last_name: lastName,
+            username: username, 
+            password: password,
+            monthly_goal: monthlyGoal
+        }
+
+        fetch('/users', {
+            method: "POST",
+            headers: {'Content-Type':'application/json'},
+            body:JSON.stringify(user)
+        })
+        .then(res => {
+            if(res.ok) {
+                res.json().then(setCurrentUser)
+            } else {
+                res.json().then(e => console.log(e.errors[0]))
+            }
+        })
     }
 
     function handleFirstNameChange(event) {
@@ -32,8 +54,8 @@ function SignupForm() {
         setConfirmPassword(event.target.value);
     }
 
-    function handleWeeklyGoalChange(event) {
-        setWeeklyGoal(event.target.value);
+    function handleMonthlyGoalChange(event) {
+        setMonthlyGoal(event.target.value);
     }
 
     return (
@@ -46,11 +68,11 @@ function SignupForm() {
             <label htmlFor="username">Username: </label>
             <input onChange={handleUsernameChange} type="text" id="username" name="username" value={username} /><br></br><br></br>
             <label htmlFor="pass">Password: </label>
-            <input onChange={handlePassChange} type="text" id="pass" name="pass" value={password} /><br></br><br></br>
+            <input onChange={handlePassChange} type="password" id="pass" name="pass" value={password} /><br></br><br></br>
             <label htmlFor="confirmPass">Confirm Password: </label>
-            <input onChange={handleConfirmPassChange} type="text" id="confirmPass" name="confirmPass" value={confirmPassword} /><br></br><br></br>
-            <label htmlFor="weeklyGoal">Monthly Workout Goal: </label>
-            <input onChange={handleWeeklyGoalChange} type="text" id="weeklyGoal" name="weeklyGoal" value={weeklyGoal} /><br></br><br></br>
+            <input onChange={handleConfirmPassChange} type="password" id="confirmPass" name="confirmPass" value={confirmPassword} /><br></br><br></br>
+            <label htmlFor="monthlyGoal">Monthly Workout Goal: </label>
+            <input onChange={handleMonthlyGoalChange} type="text" id="monthlyGoal" name="monthlyGoal" value={monthlyGoal} /><br></br><br></br>
             <input type="submit" />
         </form>
     );

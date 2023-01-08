@@ -22,7 +22,7 @@ function LoginForm() {
             <label htmlFor="username">Username: </label>
             <input onChange={handleUsernameChange} type="text" id="username" name="username" value={username} /><br></br><br></br>
             <label htmlFor="pass">Password: </label>
-            <input onChange={handlePassChange} type="text" id="pass" name="pass" value={password} /><br></br><br></br>
+            <input onChange={handlePassChange} type="password" id="pass" name="pass" value={password} /><br></br><br></br>
             <input type="submit" />
         </form>
     );
