@@ -1,10 +1,24 @@
 import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Login from "./Login";
 
-function Account({fname, lname, username, monthlyGoal, onChangeAccount}) {
+function Account({fname, lname, username, monthlyGoal, onChangeAccount, setCurrentUser}) {
     function handleUpdate(e) {
         e.preventDefault();
+    }
+
+    function handleLogout() {
+        fetch('/login', {
+            method: "DELETE"
+        })
+        .then((r) => {
+            if (r.ok) {
+              setCurrentUser(null);
+            }
+        })
+
+        return <Login setCurrentUser={setCurrentUser} />;
     }
 
 
@@ -35,7 +49,7 @@ function Account({fname, lname, username, monthlyGoal, onChangeAccount}) {
                 </div>
             </Form><br></br>
             <div className="buttDiv">
-                <Button className="butt" variant="outline-primary">
+                <Button onClick={handleLogout} className="butt" variant="outline-primary">
                     Logout
                 </Button>
             </div>

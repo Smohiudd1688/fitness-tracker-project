@@ -29,9 +29,10 @@ function App() {
         r.json().then((currentUser) => setCurrentUser(currentUser));
       }
     });
+    if (!currentUser) return <Login setCurrentUser={setCurrentUser} />;
   }, []);
 
-  if (!currentUser) return <Login setCurrentUser={setCurrentUser} />;
+
 
   function handleAccountChange(property, value) {
     if (property === "firstName") setFirstName(value);
@@ -58,6 +59,7 @@ function App() {
               username={username} 
               monthlyGoal={monthlyGoal} 
               onChangeAccount={handleAccountChange}
+              setCurrentUser={setCurrentUser}
             />
           </Route>
           <Route exact path="/" >
