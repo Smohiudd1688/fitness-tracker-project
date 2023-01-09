@@ -65,7 +65,7 @@ function Workouts() {
     return (
         <div>
             <h1 className="pageH">Workout Tracker</h1><br></br>
-            <Button id="showAll" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button>
+            <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button></div>
             {renderWorkouts}
             <WorkoutForm />
         </div>

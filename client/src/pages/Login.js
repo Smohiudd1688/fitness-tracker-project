@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import SignupForm from "../Forms/SignupForm";
 import LoginForm from "../Forms/LoginForm";
 
-function Login({onLogin, setCurrentUser}) {
+function Login({setCurrentUser}) {
     const [hasLogin, setHasLogin] = useState(true);
 
     function handleHasLoginChange() {
         setHasLogin(!hasLogin);
     }
+    
     return (
         <div>
             <br></br><br></br><br></br>

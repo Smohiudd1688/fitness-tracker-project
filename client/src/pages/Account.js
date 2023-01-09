@@ -27,11 +27,18 @@ function Account({fname, lname, username, monthlyGoal, onChangeAccount}) {
                 <Form.Group className="mb-3">
                     <Form.Label>Monthly Workout Goal</Form.Label>
                     <Form.Control onChange={(e) => onChangeAccount("monthlyGoal", e.target.value)} type="text" value={monthlyGoal} />
-                </Form.Group>
-                <Button onClick={handleUpdate} id="update" variant="primary" type="submit">
+                </Form.Group><br></br>
+                <div className="buttDiv">
+                <Button onClick={handleUpdate} className="butt" variant="primary" type="submit">
                     Update
                 </Button>
-            </Form>
+                </div>
+            </Form><br></br>
+            <div className="buttDiv">
+                <Button className="butt" variant="outline-primary">
+                    Logout
+                </Button>
+            </div>
         </div>
     );
 }

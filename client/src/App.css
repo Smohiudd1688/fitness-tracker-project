@@ -113,15 +113,19 @@ label{
   margin-left: 5%;
 }
 
-#showAll {
-  width: 10%;
-  margin-right: 45%;
-  margin-left: 45%;
+.butt {
+  width: 8rem;
 }
 
 .errors {
   color: rgb(164, 214, 254);
   text-align: center;
 }
+
+.buttDiv {
+  display: flex;
+  justify-content: center;
+}
+
 
 

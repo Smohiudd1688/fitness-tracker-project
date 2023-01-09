@@ -31,7 +31,7 @@ function App() {
     });
   }, []);
 
-  if (!currentUser) return <Login onLogin={setCurrentUser} setCurrentUser={setCurrentUser} />;
+  if (!currentUser) return <Login setCurrentUser={setCurrentUser} />;
 
   function handleAccountChange(property, value) {
     if (property === "firstName") setFirstName(value);
