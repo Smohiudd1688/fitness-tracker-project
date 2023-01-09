@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Login from "./Login";
 
-function Account({fname, lname, username, monthlyGoal, onChangeAccount, setCurrentUser}) {
+function Account({currentUser, onChangeAccount, setCurrentUser}) {
     function handleUpdate(e) {
         e.preventDefault();
     }
@@ -18,7 +18,7 @@ function Account({fname, lname, username, monthlyGoal, onChangeAccount, setCurre
             }
         })
 
-        return <Login setCurrentUser={setCurrentUser} />;
+        //return <Login setCurrentUser={setCurrentUser} />;
     }
 
 
@@ -28,19 +28,19 @@ function Account({fname, lname, username, monthlyGoal, onChangeAccount, setCurre
             <Form id="accountForm">
                 <Form.Group className="mb-3">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control onChange={(e) => onChangeAccount("firstName", e.target.value)} type="text" value={fname} />
+                    <Form.Control onChange={(e) => onChangeAccount("firstName", e.target.value)} type="text" value={currentUser.first_name} />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control onChange={(e) => onChangeAccount("lastName", e.target.value)} type="text" value={lname} />
+                    <Form.Control onChange={(e) => onChangeAccount("lastName", e.target.value)} type="text" value={currentUser.last_name} />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control placeholder={username} disabled />
+                    <Form.Control placeholder={currentUser.username} disabled />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Monthly Workout Goal</Form.Label>
-                    <Form.Control onChange={(e) => onChangeAccount("monthlyGoal", e.target.value)} type="text" value={monthlyGoal} />
+                    <Form.Control onChange={(e) => onChangeAccount("monthlyGoal", e.target.value)} type="text" value={currentUser.monthly_goal} />
                 </Form.Group><br></br>
                 <div className="buttDiv">
                 <Button onClick={handleUpdate} className="butt" variant="primary" type="submit">
