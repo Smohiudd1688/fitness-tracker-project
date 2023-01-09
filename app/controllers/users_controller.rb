@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
-    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def create
         user = User.create!(user_params)
         render json: user, status: :created
+    end
+
+    def show
+        user = User.find_by(id: params[:id])
+        render json: user, status: :ok
     end
 
     private
@@ -14,5 +20,9 @@ class UsersController < ApplicationController
 
     def render_unprocessable_entity_response(invalid)
         render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    end
+
+    def render_not_found
+        render json: {error: "User not found"}, status: :not_found
     end
 end
