@@ -119,4 +119,9 @@ label{
   margin-left: 45%;
 }
 
+.errors {
+  color: rgb(164, 214, 254);
+  text-align: center;
+}
+
 
