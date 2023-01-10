@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { format } from 'date-fns'
 
 function GoalForm() {
      
@@ -12,10 +13,7 @@ function GoalForm() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(title);
-        console.log(starting);
-        console.log(goal);
-        console.log(endDate);
+       
     }
 
     function handleTitleChange(event) {

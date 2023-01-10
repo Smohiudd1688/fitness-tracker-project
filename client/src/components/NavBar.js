@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
 
-function NavBar() {
+function NavBar({currentUser}) {
     return (
         <Navbar bg="light" variant="light">
         <Container>
@@ -17,7 +17,7 @@ function NavBar() {
           </Nav>
           <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    Signed in as: <a href="/account">Username</a>
+                    Signed in as: <a href="/account">{currentUser.username}</a>
                 </Navbar.Text>
             </Navbar.Collapse>
         </Container>

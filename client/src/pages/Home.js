@@ -7,7 +7,7 @@ import GoalItem from "../components/GoalItem";
 import GoalForm from "../Forms/GoalForm";
 
 
-function Home() {
+function Home({currentUser}) {
     const goals = [
         {
             id: 1,
@@ -66,7 +66,7 @@ function Home() {
         <Container fluid="xxl">
             <br></br><br></br>
             <Row>
-                <h3 className="header">Welcome back, name!</h3>
+                <h3 className="header">Welcome back, {currentUser.first_name}!</h3>
             </Row>
             <Row>
                 <h1 className="header">Monthly Workout Progress</h1>

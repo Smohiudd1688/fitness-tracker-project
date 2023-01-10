@@ -9,10 +9,6 @@ function WorkoutForm() {
     function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(name);
-        console.log(time);
-        console.log(date);
-        console.log(exercises);
     }
 
     function handleNameChange(event) {

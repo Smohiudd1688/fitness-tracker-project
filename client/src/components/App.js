@@ -19,13 +19,16 @@ function App() {
     // auto-login
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((currentUser) => setCurrentUser(currentUser));
-      }
-    });
+         r.json().then((currentUser) => setCurrentUser(currentUser));
+        }
+      });
+
   }, []);
 
-  if (!currentUser) return <Login setCurrentUser={setCurrentUser} />;
-
+ 
+  if (!currentUser) return <Login setCurrentUser={setCurrentUser} />
+    
+  
 
 
   function handleAccountChange(property, value) {
@@ -40,11 +43,14 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar currentUser={currentUser}/>
       <BrowserRouter>
         <Switch>
-          <Route path="/workouts" >
+          <Route path="/login" >
             <Workouts />
+          </Route>
+          <Route path="/workouts" >
+            <Workouts currentUser={currentUser} />
           </Route>
           <Route path="/account" >
             <Account 
@@ -54,7 +60,7 @@ function App() {
             />
           </Route>
           <Route exact path="/" >
-            <Home />
+            <Home currentUser={currentUser}/>
           </Route>
           <Route path="*">
             <h1>404 not found</h1>
@@ -63,6 +69,7 @@ function App() {
       </BrowserRouter>
     </div>
   );
+  
 }
 
 export default App;
