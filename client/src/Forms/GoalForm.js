@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import { format } from 'date-fns'
 
-function GoalForm() {
-     
+function GoalForm({userId, goals, setGoals}) {
+    const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
     const [starting, setStarting] = useState();
     const [goal, setGoal] = useState();
@@ -13,7 +13,26 @@ function GoalForm() {
     function handleSubmit(event) {
         event.preventDefault();
 
-       
+        const newGoal = {
+            title: title,
+            starting: starting,
+            goal: goal,
+            end_date: endDate,
+            user_id: userId
+        }
+
+        fetch('/goals', {
+            method: "POST",
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(newGoal)
+        })
+        .then(res => {
+            if(res.ok) {
+                res.json().then(resGoal => setGoals([...goals, resGoal]))
+            } else {
+                res.json().then(e => setErrors(e.errors))
+            }
+        })
     }
 
     function handleTitleChange(event) {

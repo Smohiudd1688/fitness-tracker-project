@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import Workouts from '../pages/Workouts';
 import Account from '../pages/Account';
 import Login from '../pages/Login';
+import Loading from '../pages/Loading';
 import '../App.css';
 
 function App() {
@@ -14,19 +15,30 @@ function App() {
   const [username, setUsername] = useState("");
   const [monthlyGoal, setMonthlyGoal] = useState(20);
   const [currentUser, setCurrentUser] = useState(null);
+  const [goals, setGoals] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     // auto-login
     fetch("/me").then((r) => {
       if (r.ok) {
-         r.json().then((currentUser) => setCurrentUser(currentUser));
+         r.json().then((currentUser) => {
+            setCurrentUser(currentUser)
+            setIsLogged(true)
+          });
         }
       });
 
   }, []);
 
- 
-  if (!currentUser) return <Login setCurrentUser={setCurrentUser} />
+  
+  
+  if (!currentUser && isLogged) {
+    return <Login setCurrentUser={setCurrentUser} />
+  } else if (!currentUser && !isLogged) {
+    return <Loading />
+  }
+
     
   
 
@@ -60,7 +72,11 @@ function App() {
             />
           </Route>
           <Route exact path="/" >
-            <Home currentUser={currentUser}/>
+            <Home
+              currentUser={currentUser}
+              goals={goals}
+              setGoals={setGoals}
+            />
           </Route>
           <Route path="*">
             <h1>404 not found</h1>

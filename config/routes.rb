@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only:[:show, :create]
+  resources :goals, only:[:create, :index, :update, :destroy]
 
   post "/login", to: "sessions#create"
   delete "/login", to: "sessions#destroy"

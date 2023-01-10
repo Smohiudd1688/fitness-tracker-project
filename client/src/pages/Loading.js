@@ -3,8 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 
-
-function NavBar({currentUser}) {
+function Loading() {
     return (
         <Navbar bg="light" variant="light">
         <Container>
@@ -16,12 +15,12 @@ function NavBar({currentUser}) {
           </Nav>
           <Navbar.Collapse className="justify-content-end">
                 <Navbar.Text>
-                    Signed in as: <a href="/account">{currentUser.username}</a>
+                    Signed in as: <a href="/account">loading</a>
                 </Navbar.Text>
-            </Navbar.Collapse>
+        </Navbar.Collapse>
         </Container>
       </Navbar>
-    );
+    )
 }
 
-export default NavBar;
+export default Loading;

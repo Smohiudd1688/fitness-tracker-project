@@ -1,9 +1,12 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Login from "./Login";
 
 function Account({currentUser, onChangeAccount, setCurrentUser}) {
+    const history = useHistory();
+
     function handleUpdate(e) {
         e.preventDefault();
     }
@@ -18,7 +21,7 @@ function Account({currentUser, onChangeAccount, setCurrentUser}) {
             }
         })
 
-        //return <Login setCurrentUser={setCurrentUser} />;
+        history.push("/")
     }
 
 

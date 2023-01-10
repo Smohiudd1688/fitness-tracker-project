@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,49 +7,7 @@ import GoalItem from "../components/GoalItem";
 import GoalForm from "../Forms/GoalForm";
 
 
-function Home({currentUser}) {
-    const goals = [
-        {
-            id: 1,
-            title: "Lose Weight",
-            starting: 170,
-            current: 160,
-            goal: 140,
-            endDate: "January 21, 2022"
-        },
-        {
-            id: 2,
-            title: "Lose Weight",
-            starting: 170,
-            current: 160,
-            goal: 140,
-            endDate: "January 21, 2022"
-        },
-        {
-            id: 3,
-            title: "Lose Weight",
-            starting: 170,
-            current: 160,
-            goal: 140,
-            endDate: "January 21, 2022"
-        },
-        {
-            id: 4,
-            title: "Lose Weight",
-            starting: 170,
-            current: 160,
-            goal: 140,
-            endDate: "January 21, 2022"
-        },
-        {
-            id: 5,
-            title: "Gain Weight",
-            starting: 140,
-            current: 150,
-            goal: 160,
-            endDate: "January 21, 2022"
-        }
-    ]
+function Home({currentUser, goals, setGoals}) {
 
     const renderGoals = goals.map(goal => {
         return <Col><GoalItem 
@@ -83,7 +41,7 @@ function Home({currentUser}) {
                 {renderGoals}
             </Row>
             <Row>
-                <GoalForm />
+                <GoalForm userId={currentUser.id} goals={goals} setGoals={setGoals} />
             </Row>
         </Container>
     );
