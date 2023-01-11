@@ -10,7 +10,8 @@ skip_before_action :authorized, only: :create
 
     def show
         user = User.find(session[:user_id])
-        render json: user, status: :ok
+        goals = user.goals
+        render json: user, include: :goals, status: :ok
     end
 
     private
@@ -24,6 +25,6 @@ skip_before_action :authorized, only: :create
     end
 
     def render_not_found
-        render json: {error: "User not found"}, status: :not_found
+        render json: {errors: "User not found"}, status: :not_found
     end
 end

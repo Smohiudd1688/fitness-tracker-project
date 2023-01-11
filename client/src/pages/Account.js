@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Login from "./Login";
 
-function Account({currentUser, onChangeAccount, setCurrentUser}) {
+function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
     const history = useHistory();
 
     function handleUpdate(e) {
@@ -21,6 +21,8 @@ function Account({currentUser, onChangeAccount, setCurrentUser}) {
             }
         })
 
+    
+        setIsLogged(false);
         history.push("/")
     }
 

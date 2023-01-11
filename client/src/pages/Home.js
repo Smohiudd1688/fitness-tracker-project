@@ -10,13 +10,15 @@ import GoalForm from "../Forms/GoalForm";
 function Home({currentUser, goals, setGoals}) {
 
     const renderGoals = goals.map(goal => {
-        return <Col><GoalItem 
-                        key={goal.id}
+        return <Col key={goal.id}><GoalItem 
+                        id={goal.id}
                         title={goal.title}
                         starting={goal.starting}
                         current={goal.current}
                         goal={goal.goal}
                         endDate={goal.endDate}
+                        goals={goals}
+                        setGoals={setGoals}
         /></Col>
     });
 

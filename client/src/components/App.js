@@ -24,6 +24,7 @@ function App() {
       if (r.ok) {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
+            setGoals(currentUser.goals)
             setIsLogged(true)
           });
         }
@@ -33,9 +34,9 @@ function App() {
 
   
   
-  if (!currentUser && isLogged) {
+  if (!currentUser && !isLogged) {
     return <Login setCurrentUser={setCurrentUser} />
-  } else if (!currentUser && !isLogged) {
+  } else if (!currentUser) {
     return <Loading />
   }
 
@@ -69,6 +70,7 @@ function App() {
               currentUser={currentUser}
               onChangeAccount={handleAccountChange}
               setCurrentUser={setCurrentUser}
+              setIsLogged={setIsLogged}
             />
           </Route>
           <Route exact path="/" >

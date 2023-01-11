@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-import { format } from 'date-fns'
 
 function GoalForm({userId, goals, setGoals}) {
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
-    const [starting, setStarting] = useState();
-    const [goal, setGoal] = useState();
+    const [starting, setStarting] = useState("");
+    const [goal, setGoal] = useState("");
     const [endDate, setEndDate] = useState(new Date());
 
     const today = (new Date()).toISOString().split('T')[0];
