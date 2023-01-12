@@ -12,6 +12,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
         render json: goals, status: :ok
     end
 
+    def update
+        goal = Goal.find_by(id: params[:id])
+        goal.update(current: params[:current])
+        render json: goal, status: :ok
+    end
+
     def destroy
         goal = Goal.find_by(id: params[:id])
         goal.destroy
@@ -22,7 +28,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     private
 
     def goal_params
-        params.permit(:title, :starting, :goal, :end_date, :user_id)
+        params.permit(:title, :starting, :current, :goal, :end_date, :user_id)
     end
 
     def render_unprocessable_entity_response(invalid)

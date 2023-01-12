@@ -15,6 +15,7 @@ function GoalForm({userId, goals, setGoals}) {
         const newGoal = {
             title: title,
             starting: starting,
+            current: starting,
             goal: goal,
             end_date: endDate,
             user_id: userId
@@ -32,6 +33,11 @@ function GoalForm({userId, goals, setGoals}) {
                 res.json().then(e => setErrors(e.errors))
             }
         })
+
+        setErrors("");
+        setTitle("");
+        setGoal("");
+        setEndDate("");
     }
 
     function handleTitleChange(event) {

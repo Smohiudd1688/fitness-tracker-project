@@ -3,15 +3,24 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Button from 'react-bootstrap/Button';
 
-function UpdateGoalForm({onUpdateSubmit}) {
-    const [updatedCurrent, setUpdatedCurrent] = useState();
+function UpdateGoalForm({onUpdateSubmit, id}) {
+    const [updatedCurrent, setUpdatedCurrent] = useState("");
     const [isUpdateClick, setIsUpdateClick] = useState(false);
 
     function handleSubmit(event) {
         event.preventDefault();
 
+        fetch(`/goals/${id}`, {
+            method: "PATCH",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+              current: updatedCurrent
+            })
+          })
+          .then(res => res.json())
+          .then(data => onUpdateSubmit(data));
+
         setIsUpdateClick(!isUpdateClick);
-        onUpdateSubmit(updatedCurrent);
         setUpdatedCurrent("");
     }
 

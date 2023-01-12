@@ -10,10 +10,6 @@ import Loading from '../pages/Loading';
 import '../App.css';
 
 function App() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [monthlyGoal, setMonthlyGoal] = useState(20);
   const [currentUser, setCurrentUser] = useState(null);
   const [goals, setGoals] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
@@ -24,8 +20,8 @@ function App() {
       if (r.ok) {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
-            setGoals(currentUser.goals)
-            setIsLogged(true)
+            setGoals([...currentUser.goals])
+            
           });
         }
       });
@@ -35,8 +31,8 @@ function App() {
   
   
   if (!currentUser && !isLogged) {
-    return <Login setCurrentUser={setCurrentUser} />
-  } else if (!currentUser) {
+    return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
+  } else if (!currentUser && isLogged) {
     return <Loading />
   }
 

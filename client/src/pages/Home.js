@@ -8,6 +8,7 @@ import GoalForm from "../Forms/GoalForm";
 
 
 function Home({currentUser, goals, setGoals}) {
+    console.log(goals)
 
     const renderGoals = goals.map(goal => {
         return <Col key={goal.id}><GoalItem 
@@ -16,7 +17,7 @@ function Home({currentUser, goals, setGoals}) {
                         starting={goal.starting}
                         current={goal.current}
                         goal={goal.goal}
-                        endDate={goal.endDate}
+                        endDate={goal.end_date}
                         goals={goals}
                         setGoals={setGoals}
         /></Col>

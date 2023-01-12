@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function LoginForm({setCurrentUser}) {
+function LoginForm({setCurrentUser, setIsLogged}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -20,11 +20,15 @@ function LoginForm({setCurrentUser}) {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(user => setCurrentUser(user))
+                res.json().then(user => {
+                    setCurrentUser(user)
+                })
             } else {
                 res.json().then(e => setErrors([...errors, e.errors]))
             }
         })
+
+        setIsLogged(true);
     }
 
     function handleUsernameChange(event) {
