@@ -14,7 +14,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def update
         goal = Goal.find_by(id: params[:id])
-        goal.update(current: params[:current])
+        goal.update(current: params[:current], completed: params[:completed])
         render json: goal, status: :ok
     end
 
@@ -28,7 +28,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     private
 
     def goal_params
-        params.permit(:title, :starting, :current, :goal, :end_date, :user_id)
+        params.permit(:title, :starting, :current, :completed, :goal, :end_date, :user_id)
     end
 
     def render_unprocessable_entity_response(invalid)

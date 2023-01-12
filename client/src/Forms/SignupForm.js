@@ -11,6 +11,7 @@ function SignupForm({setCurrentUser}) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setErrors([]);
 
         const user = {
             first_name: firstName,
@@ -29,7 +30,7 @@ function SignupForm({setCurrentUser}) {
             if(res.ok) {
                 res.json().then(user => setCurrentUser(user))
             } else {
-                res.json().then(e => setErrors(e.errors))
+                res.json().then(e => setErrors([...e.errors]))
             }
         })
     }

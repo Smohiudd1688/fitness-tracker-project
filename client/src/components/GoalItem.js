@@ -2,12 +2,9 @@ import React, {useState} from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import UpdateGoalForm from "../Forms/UpdateGoalForm";
-import CompletedGoalItem from "./CompletedGoalItem";
 
 
-function GoalItem({id, title, starting, current, goal, endDate, goals, setGoals}) {
-    const [isCompleted, setIsComplete] = useState(false);
-
+function GoalItem({id, title, starting, current, completed, goal, endDate, goals, setGoals}) {
     function handleUpdateSubmit(updatedCurrent) {
       const updatedGoals = goals.map(goalItem => {
         if (goalItem.id === updatedCurrent.id) {
@@ -16,12 +13,7 @@ function GoalItem({id, title, starting, current, goal, endDate, goals, setGoals}
         return goalItem;
       });
 
-      setGoals(updatedGoals);
-
-      if(starting > goal && updatedCurrent.current <= goal || starting < goal && updatedCurrent.current >= goal) {
-        setIsComplete(true);
-      }  
-
+      setGoals(updatedGoals);  
     }
 
     function handleDeleteGoal() {
@@ -40,21 +32,23 @@ function GoalItem({id, title, starting, current, goal, endDate, goals, setGoals}
 
     return (
         <div>
-              <Card border="success" className="mx-auto" style={{ width: '18rem' }}>
+              <Card id="goalCard" border="success" className="mx-auto" style={{ width: '18rem' }}>
                 <Card.Body>
-                  {isCompleted ? <Card.Title id="finished"><strong>FINISHED</strong></Card.Title> : null}
                   <Card.Title><strong>{title}</strong></Card.Title>
+                  {completed ? <Card.Title className="finished"><strong>FINISHED</strong></Card.Title> : null}
                   <Card.Subtitle className="mb-2 text-muted"><strong>Goal:</strong> {goal}</Card.Subtitle>
                   <Card.Text>
                     <strong>Where you started:</strong> {starting}<br></br>
                     <strong>Where you are at:</strong> {current}<br></br>
                     <strong>When you want to achieve it by:</strong> {endDate}
                   </Card.Text>
-                  {!isCompleted ? <UpdateGoalForm 
+                  {!completed ? <UpdateGoalForm 
+                    starting={starting}
+                    goal={goal}
                     onUpdateSubmit={handleUpdateSubmit}
                     id={id}
                   /> : null}
-                  {!isCompleted ? <Button onClick={handleDeleteGoal} variant="outline-primary" id="delete">Delete Goal</Button> : null}
+                  {!completed ? <Button onClick={handleDeleteGoal} variant="outline-primary" id="delete">Delete Goal</Button> : null}
                 </Card.Body>
               </Card><br></br><br></br>
         </div>

@@ -7,6 +7,7 @@ function LoginForm({setCurrentUser, setIsLogged}) {
 
     function handleShowSubmit(event) {
         event.preventDefault();
+        setErrors([]);
 
         const user = {
             username: username,
@@ -24,7 +25,7 @@ function LoginForm({setCurrentUser, setIsLogged}) {
                     setCurrentUser(user)
                 })
             } else {
-                res.json().then(e => setErrors([...errors, e.errors]))
+                res.json().then(e => setErrors([e.errors]))
             }
         })
 

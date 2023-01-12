@@ -24,16 +24,21 @@ function App() {
             
           });
         }
-      });
+      })
+      /*.then(() => {
+        if (!currentUser && !isLogged) {
+          return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
+        } else if (!currentUser && isLogged) {
+          return <Loading />
+        }
+      })*/
 
   }, []);
 
   
   
-  if (!currentUser && !isLogged) {
+  if (!currentUser) {
     return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
-  } else if (!currentUser && isLogged) {
-    return <Loading />
   }
 
     

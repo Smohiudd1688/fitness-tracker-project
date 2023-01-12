@@ -16,6 +16,7 @@ function GoalForm({userId, goals, setGoals}) {
             title: title,
             starting: starting,
             current: starting,
+            completed: false,
             goal: goal,
             end_date: endDate,
             user_id: userId

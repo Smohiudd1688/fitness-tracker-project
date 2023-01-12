@@ -16,6 +16,7 @@ function Home({currentUser, goals, setGoals}) {
                         title={goal.title}
                         starting={goal.starting}
                         current={goal.current}
+                        completed={goal.completed}
                         goal={goal.goal}
                         endDate={goal.end_date}
                         goals={goals}
