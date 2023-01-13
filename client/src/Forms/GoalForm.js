@@ -11,6 +11,7 @@ function GoalForm({userId, goals, setGoals}) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setErrors([]);
 
         const newGoal = {
             title: title,
@@ -35,9 +36,9 @@ function GoalForm({userId, goals, setGoals}) {
             }
         })
 
-        setErrors("");
         setTitle("");
         setGoal("");
+        setStarting("");
         setEndDate("");
     }
 
@@ -57,19 +58,28 @@ function GoalForm({userId, goals, setGoals}) {
         setEndDate(event.target.value);
     }
 
+    const renderErrors = errors.map((error, index) => {
+        return (
+            <p className="errors" key={index}>* {error}</p>
+        );
+    })
+
     return (
-        <form className="goalForm" onSubmit={handleSubmit}>
-            <h3>Add a Goal to Track</h3><br></br>
-            <label htmlFor="title">What is your fitness goal? </label>
-            <input onChange={handleTitleChange} type="text" id="title" name="title" value={title} /><br></br><br></br>
-            <label htmlFor="goal">What is your goal number? </label>
-            <input onChange={handleGoalChange} type="text" id="goal" name="goal" value={goal} /><br></br><br></br>
-            <label htmlFor="start">What are you starting at? </label>
-            <input onChange={handleStartChange} type="text" id="start" name="start" value={starting} /><br></br><br></br>
-            <label htmlFor="date">When do you want to complete your goal? </label>
-            <input onChange={handleDateChange} type="date" id="date" name="date" min={today} selected={endDate} /><br></br><br></br>
-            <input type="submit" />
-        </form>
+        <div>
+            {errors.length !== 0 ? renderErrors : null}
+            <form className="goalForm" onSubmit={handleSubmit}>
+                <h3>Add a Goal to Track</h3><br></br>
+                <label htmlFor="title">What is your fitness goal? </label>
+                <input onChange={handleTitleChange} type="text" id="title" name="title" value={title} /><br></br><br></br>
+                <label htmlFor="goal">What is your goal number? </label>
+                <input onChange={handleGoalChange} type="text" id="goal" name="goal" value={goal} /><br></br><br></br>
+                <label htmlFor="start">What are you starting at? </label>
+                <input onChange={handleStartChange} type="text" id="start" name="start" value={starting} /><br></br><br></br>
+                <label htmlFor="date">When do you want to complete your goal? </label>
+                <input onChange={handleDateChange} type="date" id="date" name="date" min={today} selected={endDate} /><br></br><br></br>
+                <input type="submit" />
+            </form>
+        </div>
     );
 
 }

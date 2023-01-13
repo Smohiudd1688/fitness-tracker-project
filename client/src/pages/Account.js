@@ -1,14 +1,30 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Login from "./Login";
 
-function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
-    const history = useHistory();
-
+function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged, setGoals}) {
     function handleUpdate(e) {
         e.preventDefault();
+
+        const user = {
+            first_name: currentUser.first_name,
+            last_name: currentUser.last_name,
+            monthly_goal: currentUser.monthly_goal
+        }
+
+        console.log(user);
+        console.log(currentUser);
+
+        fetch(`/users/${currentUser.id}`, {
+            method: "PATCH",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => setCurrentUser(data));
+
+        //console.log(currentUser);
     }
 
     function handleLogout() {
@@ -21,9 +37,8 @@ function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
             }
         })
 
-    
+        setGoals([]);
         setIsLogged(false);
-        history.push("/")
     }
 
 

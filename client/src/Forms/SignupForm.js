@@ -1,12 +1,14 @@
 import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
 
-function SignupForm({setCurrentUser}) {
+function SignupForm({setCurrentUser, setGoals}) {
+    const history = useHistory();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [monthlyGoal, setMonthlyGoal] = useState();
+    const [monthlyGoal, setMonthlyGoal] = useState("");
     const [errors, setErrors] = useState([]);
 
     function handleSubmit(event) {
@@ -28,11 +30,15 @@ function SignupForm({setCurrentUser}) {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(user => setCurrentUser(user))
+                res.json().then(user => {
+                    setCurrentUser(user)
+                    setGoals([])
+                })
             } else {
                 res.json().then(e => setErrors([...e.errors]))
             }
         })
+
     }
 
     function handleFirstNameChange(event) {

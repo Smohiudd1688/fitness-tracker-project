@@ -8,8 +8,6 @@ import GoalForm from "../Forms/GoalForm";
 
 
 function Home({currentUser, goals, setGoals}) {
-    console.log(goals)
-
     const renderGoals = goals.map(goal => {
         return <Col key={goal.id}><GoalItem 
                         id={goal.id}
@@ -35,7 +33,7 @@ function Home({currentUser, goals, setGoals}) {
             </Row>
             <Row>
                 <Col>
-                    <ProgressBar id="progress" animated now={40} />
+                    <ProgressBar id="progress" animated now={(7 / currentUser.monthly_goal) * 100} />
                 </Col>
             </Row><br></br>
             <Row>

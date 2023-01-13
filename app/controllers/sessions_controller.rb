@@ -4,9 +4,10 @@ class SessionsController < ApplicationController
 
     def create
         user = User.find_by(username: params[:username])
+        goals = user.goals
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
-            render json: user, status: :created
+            render json: user, include: :goals, status: :created
         else
             render json: {errors: "Invalid username or password"}, status: :unauthorized
         end

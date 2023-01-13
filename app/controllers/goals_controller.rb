@@ -14,7 +14,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def update
         goal = Goal.find_by(id: params[:id])
-        goal.update(current: params[:current], completed: params[:completed])
+        goal.update!(current: params[:current], completed: params[:completed])
         render json: goal, status: :ok
     end
 

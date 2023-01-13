@@ -15,6 +15,11 @@ function UpdateGoalForm({starting, goal, onUpdateSubmit, id}) {
             isComplete = true;
         }
 
+        console.log({
+            current: updatedCurrent,
+            completed: isComplete
+          })
+
         fetch(`/goals/${id}`, {
             method: "PATCH",
             headers: {"Content-Type":"application/json"},

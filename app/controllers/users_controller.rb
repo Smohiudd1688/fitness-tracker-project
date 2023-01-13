@@ -5,6 +5,7 @@ skip_before_action :authorized, only: :create
 
     def create
         user = User.create!(user_params)
+        session[:user_id] = user.id
         render json: user, status: :created
     end
 
@@ -12,6 +13,12 @@ skip_before_action :authorized, only: :create
         user = User.find(session[:user_id])
         goals = user.goals
         render json: user, include: :goals, status: :ok
+    end
+
+    def update
+        user = User.find_by(id: params[:id])
+        user.update!(first_name: params[:first_name], last_name: params[:last_name], monthly_goal: params[:monthly_goal])
+        render json: user, status: :ok
     end
 
     private

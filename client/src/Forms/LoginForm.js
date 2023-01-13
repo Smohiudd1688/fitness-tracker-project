@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function LoginForm({setCurrentUser, setIsLogged}) {
+function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -23,6 +23,9 @@ function LoginForm({setCurrentUser, setIsLogged}) {
             if(res.ok) {
                 res.json().then(user => {
                     setCurrentUser(user)
+                    console.log(user);
+                    console.log(user.goals);
+                    setGoals([...user.goals])
                 })
             } else {
                 res.json().then(e => setErrors([e.errors]))
