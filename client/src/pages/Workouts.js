@@ -3,62 +3,34 @@ import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
 import Button from 'react-bootstrap/Button';
 
-function Workouts() {
+function Workouts({currentUser, workouts, setWorkouts, allWorkouts}) {
     const [showAll, setShowAll] = useState(false);
-
-    const workouts = [
-        {
-            id: 1,
-            name: "Leg Workout",
-            time: 60,
-            date: "January 4, 2023",
-            exercises: [
-                {
-                    name: "Leg Press",
-                    sets: 3,
-                    reps: 12
-                },
-                {
-                    name: "Squats",
-                    sets: 4,
-                    reps: 8
-                }
-            ],
-            user: "smohiudd"
-        },
-        {
-            id: 2,
-            name: "Leg Workout",
-            time: 60,
-            date: "January 4, 2023",
-            exercises: [
-                {
-                    name: "Leg Press",
-                    sets: 3,
-                    reps: 12
-                },
-                {
-                    name: "Squats",
-                    sets: 4,
-                    reps: 8
-                }
-            ],
-            user: "smohiudd"
-        }
-    ];
 
     function handleClick() {
         setShowAll(!showAll)
     }
 
-    const renderWorkouts = workouts.map(workout => {
+    function renderWorkouts(workoutList) {
+        return workoutList.map(workout => {
+            return <WorkoutItem 
+                            key={workout.id}
+                            name={workout.title}
+                            time={workout.time}
+                            date={workout.date}
+                            exercises={workout.exercises}
+                            user={currentUser.username}
+            />
+        });
+    }
+
+    const renderMyWorkouts = workouts.map(workout => {
         return <WorkoutItem 
                         key={workout.id}
-                        name={workout.name}
+                        name={workout.title}
                         time={workout.time}
                         date={workout.date}
                         exercises={workout.exercises}
-                        user={workout.user}
+                        user={currentUser.username}
         />
     });
 
@@ -66,8 +38,8 @@ function Workouts() {
         <div>
             <h1 className="pageH">Workout Tracker</h1><br></br>
             <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button></div>
-            {renderWorkouts}
-            <WorkoutForm />
+            {showAll ? renderWorkouts(allWorkouts) : renderWorkouts(workouts)}
+            <WorkoutForm id={currentUser.id} workouts={workouts} setWorkouts={setWorkouts}/>
         </div>
     );
 }

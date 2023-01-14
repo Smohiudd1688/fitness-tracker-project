@@ -12,6 +12,8 @@ import '../App.css';
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [goals, setGoals] = useState([]);
+  const [workouts, setWorkouts] = useState([]);
+  const [allWorkouts, setAllWorkouts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -21,9 +23,10 @@ function App() {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
             setGoals([...currentUser.goals])
+            setWorkouts([...currentUser.workouts])
           });
         }
-      })
+      });
       /*.then(() => {
         if (!currentUser && !isLogged) {
           return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
@@ -32,7 +35,13 @@ function App() {
         }
       })*/
 
+      fetch("/workouts")
+      .then(res => res.json())
+      .then(data => setAllWorkouts([...data]))
+
   }, []);
+
+  console.log(allWorkouts);
 
   if (!currentUser) {
     return <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
@@ -48,25 +57,25 @@ function App() {
     if (property === "monthlyGoal") setCurrentUser({...currentUser, monthly_goal: value});
   }
 
-  function handleAccountUpdate() {
-    
-  }
-
   return (
     <div className="App">
       <NavBar currentUser={currentUser}/>
       <BrowserRouter>
         <Switch>
           <Route path="/login" >
-            <Workouts />
+            <Login />
           </Route>
           <Route path="/workouts" >
-            <Workouts currentUser={currentUser} />
+            <Workouts 
+              currentUser={currentUser}  
+              workouts={workouts} 
+              setWorkouts={setWorkouts}
+              allWorkouts={allWorkouts}
+            />
           </Route>
           <Route path="/account" >
             <Account 
               currentUser={currentUser}
-              onChangeAccount={handleAccountChange}
               setCurrentUser={setCurrentUser}
               setIsLogged={setIsLogged}
               setGoals={setGoals}

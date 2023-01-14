@@ -20,7 +20,8 @@ function SignupForm({setCurrentUser, setGoals}) {
             last_name: lastName,
             username: username, 
             password: password,
-            monthly_goal: monthlyGoal
+            monthly_goal: monthlyGoal,
+            current: 0
         }
 
         fetch('/users', {

@@ -32,9 +32,7 @@ function WorkoutItem({name, time, date, exercises, user}) {
 
     const renderExercises = exercises.map(exercise => {
         return (
-            
-            <> {exercise.sets} X {exercise.reps} {exercise.name}<br></br></>
-            
+            <p key={exercise.id}>{exercise}</p>
         )
     });
 

@@ -12,19 +12,20 @@ skip_before_action :authorized, only: :create
     def show
         user = User.find(session[:user_id])
         goals = user.goals
-        render json: user, include: :goals, status: :ok
+        workouts = user.workouts
+        render json: user, include: [:workouts, :goals], status: :ok
     end
 
     def update
         user = User.find_by(id: params[:id])
-        user.update!(first_name: params[:first_name], last_name: params[:last_name], monthly_goal: params[:monthly_goal])
+        user.update!(user_params)
         render json: user, status: :ok
     end
 
     private
 
     def user_params
-        params.permit(:first_name, :last_name, :username, :password, :monthly_goal)
+        params.permit(:first_name, :last_name, :username, :current, :password, :monthly_goal)
     end
 
     def render_unprocessable_entity_response(invalid)
