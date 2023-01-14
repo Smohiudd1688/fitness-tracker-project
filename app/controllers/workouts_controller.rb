@@ -15,7 +15,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     private
 
     def workout_params
-        params.permit(:title, :time, :date, :user_id, exercises: [])
+        params.permit(:title, :time, :date, :user_id, :username, exercises: [])
     end
 
     def render_unprocessable_entity_response(invalid)

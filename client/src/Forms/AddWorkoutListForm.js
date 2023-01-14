@@ -31,7 +31,7 @@ function AddWorkoutListForm() {
                     <Popover.Body>
                         <form onSubmit={handleSubmit}>
                             <label htmlFor="dateW">When did you complete the workout? </label>
-                            <input onChange={handleDateChange} type="dateW" id="dateW" name="dateW" selected={date} />
+                            <input onChange={handleDateChange} type="date" id="dateW" name="dateW" selected={date} />
                             <input type="submit" />
                         </form>
                     </Popover.Body>

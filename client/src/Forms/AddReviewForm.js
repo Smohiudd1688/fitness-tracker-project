@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
-function AddReviewForm() {
+function AddReviewForm({currentUser, workout_id, reviews, setReviews}) {
+    const [errors, setErrors] = useState([]);
     const [isAddClick, setIsAddClick] = useState(false);
-    const [difficulty, setDifficulty] = useState();
-    const [wouldRepeat, setWouldRepeat] = useState();
+    const [difficulty, setDifficulty] = useState("");
+    const [wouldRepeat, setWouldRepeat] = useState("");
     const [description, setDescription] = useState("");
 
     function handleDifficultyChange(event) {
@@ -27,6 +28,36 @@ function AddReviewForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setErrors([]);
+
+        const review = {
+            difficulty: difficulty,
+            would_repeat: wouldRepeat,
+            description: description,
+            username: currentUser.username,
+            workout_id: workout_id,
+            user_id: currentUser.id
+        }
+
+        fetch('/reviews', {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(review)
+        })
+        .then(res => {
+            if(res.ok) {
+                res.json().then(resReview => {
+                    setReviews([...reviews, resReview])
+                })
+            } else {
+                res.json().then(e => setErrors(e.errors))
+            }
+        })
+
+        setDifficulty("");
+        setWouldRepeat("");
+        setDescription("");
+
     }
 
     return(
@@ -57,7 +88,7 @@ function AddReviewForm() {
                                 <option value={5}>5</option>
                             </select>
                             <label htmlFor="description">How would you describe this workout? </label>
-                            <textarea rows="5" cols="30" id="description" onChange={handleDescriptionChange} />
+                            <textarea rows="5" cols="30" id="description" value={description} onChange={handleDescriptionChange} />
                             <input type="submit" />
                         </form>
                     </Popover.Body>

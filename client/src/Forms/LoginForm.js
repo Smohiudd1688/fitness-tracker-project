@@ -23,12 +23,10 @@ function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
             if(res.ok) {
                 res.json().then(user => {
                     setCurrentUser(user)
-                    console.log(user);
-                    console.log(user.goals);
-                    setGoals([...user.goals])
+                    setGoals(user.goals)
                 })
             } else {
-                res.json().then(e => setErrors([e.errors]))
+                res.json().then(e => setErrors(e.errors))
             }
         })
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function WorkoutForm({id, workouts, setWorkouts}) {
+function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWorkouts}) {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
@@ -22,7 +22,8 @@ function WorkoutForm({id, workouts, setWorkouts}) {
             time: time,
             date: date,
             exercises: renderExercises,
-            user_id: id
+            username: currentUser.username,
+            user_id: currentUser.id
         }
 
         fetch("/workouts", {
@@ -32,7 +33,10 @@ function WorkoutForm({id, workouts, setWorkouts}) {
         })
         .then(res => {
             if(res.ok) {
-                res.json().then(resWorkout => setWorkouts([...workouts, resWorkout]))
+                res.json().then(resWorkout => {
+                    setWorkouts([...workouts, resWorkout])
+                    setAllWorkouts([...allWorkouts, resWorkout])
+                })
             } else {
                 res.json().then(e => setErrors(e.errors))
             }
@@ -70,13 +74,11 @@ function WorkoutForm({id, workouts, setWorkouts}) {
     function handleExerciseChange(event, index, property) {
         exercises[index][property] = event.target.value;
         setExercises([...exercises]);
-        console.log(exercises);
     }
 
     function handleRemove(index) {
         exercises.splice(index, 1);
         setExercises([...exercises]);
-        console.log(exercises);
     }
 
     const renderErrors = errors.map((error, index) => {

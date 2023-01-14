@@ -5,30 +5,9 @@ import AddReviewForm from "../Forms/AddReviewForm";
 import ReviewItem from "./ReviewItem";
 import Button from 'react-bootstrap/Button';
 
-function WorkoutItem({name, time, date, exercises, user}) {
+function WorkoutItem({id, name, time, date, exercises, user, currentUser}) {
     const [showReviews, setShowReviews] = useState(false);
-
-    const reviews = [
-        {
-            difficulty: 2,
-            wouldRepeat: 4,
-            description: "I really enjoyed this workout. It was not too difficult for a beginner like me. I was sore the next day but not too much that I couldn't workout today!",
-            user: "smohiudd"
-        },
-        {
-            difficulty: 2,
-            wouldRepeat: 4,
-            description: "I really enjoyed this workout. It was not too difficult for a beginner like me. I was sore the next day but not too much that I couldn't workout today!",
-            user: "smohiudd"
-        },
-        {
-            difficulty: 2,
-            wouldRepeat: 4,
-            description: "I really enjoyed this workout. It was not too difficult for a beginner like me. I was sore the next day but not too much that I couldn't workout today!",
-            user: "smohiudd"
-        }
-    ];
-
+    const [reviews, setReviews] = useState([]);
 
     const renderExercises = exercises.map(exercise => {
         return (
@@ -40,10 +19,10 @@ function WorkoutItem({name, time, date, exercises, user}) {
         setShowReviews(!showReviews);
     }
 
-    const renderReviews = reviews.map((review, index) => {
+    const renderReviews = reviews.map(review => {
         return(
             <ReviewItem 
-                key={index}
+                key={review.id}
                 difficulty={review.difficulty}
                 wouldRepeat={review.wouldRepeat}
                 description={review.description}
@@ -62,17 +41,17 @@ function WorkoutItem({name, time, date, exercises, user}) {
                     Date of Workout: <em>{date}</em><br></br>
                 </p>
                 <hr></hr>
-                <p className="list">
+                <div className="list">
                     Exercises completed:<br></br>
                     {renderExercises}
-                </p>
+                </div>
                 <p className="list">
                     Reviews:<br></br><br></br>
                     <Button className="review" onClick={handleShowClick} variant="outline-primary">{showReviews ? "Hide Reviews" : "Show Reviews"}</Button> 
-                    <AddReviewForm /><br></br><br></br>
+                    <AddReviewForm currentUser={currentUser} workout_id={id} /><br></br><br></br>
                     {showReviews ? renderReviews : null}
                 </p>
-                <AddWorkoutListForm /><br></br><br></br>
+                <AddWorkoutListForm reviews={reviews} setReviews={setReviews} /><br></br><br></br>
                 <footer className="blockquote-footer">
                     Created by: {user}
                 </footer>

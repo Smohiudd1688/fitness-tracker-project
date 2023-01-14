@@ -22,8 +22,8 @@ function App() {
       if (r.ok) {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
-            setGoals([...currentUser.goals])
-            setWorkouts([...currentUser.workouts])
+            setGoals(currentUser.goals)
+            setWorkouts(currentUser.workouts)
           });
         }
       });
@@ -37,7 +37,7 @@ function App() {
 
       fetch("/workouts")
       .then(res => res.json())
-      .then(data => setAllWorkouts([...data]))
+      .then(data => setAllWorkouts(data))
 
   }, []);
 
@@ -71,6 +71,7 @@ function App() {
               workouts={workouts} 
               setWorkouts={setWorkouts}
               allWorkouts={allWorkouts}
+              setAllWorkouts={setAllWorkouts}
             />
           </Route>
           <Route path="/account" >
