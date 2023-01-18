@@ -28,6 +28,7 @@ function AddReviewForm({currentUser, workout_id, reviews, setReviews}) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setIsAddClick(!isAddClick);
         setErrors([]);
 
         const review = {

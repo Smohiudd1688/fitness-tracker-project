@@ -13,7 +13,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [goals, setGoals] = useState([]);
   const [workouts, setWorkouts] = useState([]);
-  const [allWorkouts, setAllWorkouts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -35,21 +34,11 @@ function App() {
         }
       })*/
 
-      fetch("/workouts")
-      .then(res => res.json())
-      .then(data => setAllWorkouts(data))
-
   }, []);
-
-  console.log(allWorkouts);
 
   if (!currentUser) {
     return <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
   }
-
-    
-  
-
 
   function handleAccountChange(property, value) {
     if (property === "firstName") setCurrentUser({...currentUser, first_name: value});
@@ -70,8 +59,6 @@ function App() {
               currentUser={currentUser}  
               workouts={workouts} 
               setWorkouts={setWorkouts}
-              allWorkouts={allWorkouts}
-              setAllWorkouts={setAllWorkouts}
             />
           </Route>
           <Route path="/account" >

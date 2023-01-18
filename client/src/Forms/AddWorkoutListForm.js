@@ -17,6 +17,9 @@ function AddWorkoutListForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setIsCompleteClick(false);
+
+        fetch("/workouts")
     }
 
     return(

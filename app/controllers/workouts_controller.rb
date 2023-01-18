@@ -8,7 +8,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     end
 
     def index
-        workouts = Workout.all
+        workouts = Workout.where.not(user_id: params[:user_id])
         render json: workouts, status: :ok
     end
 

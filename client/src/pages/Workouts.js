@@ -1,10 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
 import Button from 'react-bootstrap/Button';
 
-function Workouts({currentUser, workouts, setWorkouts, setAllWorkouts, allWorkouts}) {
+function Workouts({currentUser, workouts, setWorkouts}) {
     const [showAll, setShowAll] = useState(false);
+    const [allWorkouts, setAllWorkouts] = useState([]);
+
+    useEffect(() => {
+        fetch(`users/${currentUser.id}/workouts`)
+        .then(res => res.json())
+        .then(data => setAllWorkouts(data))
+    }, []);
 
     function handleClick() {
         setShowAll(!showAll)

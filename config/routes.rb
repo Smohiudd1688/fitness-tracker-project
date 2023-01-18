@@ -1,8 +1,16 @@
 Rails.application.routes.draw do
-  resources :users, only:[:show, :create, :update]
-  resources :workouts, only:[:create, :index]
-  resources :goals, only:[:create, :index, :update, :destroy]
-  resources :reviews, only:[:create]
+  resources :users, only: [:show, :create, :update]
+  resources :workouts, only: [:create]
+  resources :goals, only: [:create, :index, :update, :destroy]
+  resources :reviews, only: [:create]
+
+  resources :workouts, only: [:show] do
+    resources :reviews, only: [:index]
+  end
+
+  resources :users, only: [:show] do
+    resources :workouts, only: [:index]
+  end
 
   post "/login", to: "sessions#create"
   delete "/login", to: "sessions#destroy"

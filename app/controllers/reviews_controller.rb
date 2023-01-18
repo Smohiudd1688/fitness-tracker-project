@@ -7,10 +7,20 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
         render json: review, status: :created
     end
 
+    def index
+        if params[:workout_id]
+          workout = Workout.find(params[:workout_id])
+          reviews = workout.reviews
+        else
+          reviews = Review.all
+        end
+        render json: reviews, include: :workout, status: :ok
+      end
+
     private
 
     def review_params
-        params.permit(:difficulty, :would_repeat, :description, :user_id, :workout_id)
+        params.permit(:difficulty, :would_repeat, :username, :description, :user_id, :workout_id)
     end
 
     def render_unprocessable_entity_response(invalid)
