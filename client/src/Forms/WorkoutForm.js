@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWorkouts}) {
+function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
@@ -35,18 +35,18 @@ function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWor
             if(res.ok) {
                 res.json().then(resWorkout => {
                     setWorkouts([...workouts, resWorkout])
-                    setAllWorkouts([...allWorkouts, resWorkout])
                 })
             } else {
                 res.json().then(e => setErrors(e.errors))
             }
-        })
+        });
 
         setName("");
         setTime("");
         setDate("");
         setExercises([]);
 
+        onWorkoutSubmit(date);
     }
 
     function handleNameChange(event) {

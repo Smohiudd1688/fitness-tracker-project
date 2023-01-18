@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +7,28 @@ import GoalItem from "../components/GoalItem";
 import GoalForm from "../Forms/GoalForm";
 
 
-function Home({currentUser, goals, setGoals}) {
+function Home({currentUser, setCurrentUser, goals, setGoals}) {
+    console.log(currentUser);
+    useEffect(() => {
+        const date = new Date();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+
+        if (month !== currentUser.month || year !== currentUser.year) {
+            fetch(`/users/${currentUser.id}`, {
+                method: "PATCH",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    month: month,
+                    year: year,
+                    current: 0
+                })
+            })
+            .then(res => res.json())
+            .then(data => setCurrentUser(data))
+        }
+    }, []);
+
     const renderGoals = goals.map(goal => {
         return <Col key={goal.id}><GoalItem 
                         id={goal.id}
@@ -33,7 +54,7 @@ function Home({currentUser, goals, setGoals}) {
             </Row>
             <Row>
                 <Col>
-                    <ProgressBar id="progress" animated now={(7 / currentUser.monthly_goal) * 100} />
+                    <ProgressBar id="progress" animated now={(currentUser.current / currentUser.monthly_goal) * 100} />
                 </Col>
             </Row><br></br>
             <Row>

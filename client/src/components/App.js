@@ -36,6 +36,7 @@ function App() {
 
   }, []);
 
+
   if (!currentUser) {
     return <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
   }
@@ -56,7 +57,8 @@ function App() {
           </Route>
           <Route path="/workouts" >
             <Workouts 
-              currentUser={currentUser}  
+              currentUser={currentUser} 
+              setCurrentUser={setCurrentUser} 
               workouts={workouts} 
               setWorkouts={setWorkouts}
             />
@@ -67,11 +69,13 @@ function App() {
               setCurrentUser={setCurrentUser}
               setIsLogged={setIsLogged}
               setGoals={setGoals}
+              onChangeAccount={handleAccountChange}
             />
           </Route>
           <Route exact path="/" >
             <Home
               currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
               goals={goals}
               setGoals={setGoals}
             />

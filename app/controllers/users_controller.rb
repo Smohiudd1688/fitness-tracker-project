@@ -25,7 +25,7 @@ skip_before_action :authorized, only: :create
     private
 
     def user_params
-        params.permit(:first_name, :last_name, :username, :current, :password, :monthly_goal)
+        params.permit(:first_name, :last_name, :username, :current, :password, :monthly_goal, :month, :year)
     end
 
     def render_unprocessable_entity_response(invalid)

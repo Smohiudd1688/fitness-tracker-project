@@ -4,8 +4,9 @@ import AddWorkoutListForm from "../Forms/AddWorkoutListForm";
 import AddReviewForm from "../Forms/AddReviewForm";
 import ReviewItem from "./ReviewItem";
 import Button from 'react-bootstrap/Button';
+import ExerciseItem from "./ExerciseItem";
 
-function WorkoutItem({id, name, time, date, exercises, user, currentUser}) {
+function WorkoutItem({id, name, time, date, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
     const [showReviews, setShowReviews] = useState(false);
     const [reviews, setReviews] = useState([]);
 
@@ -15,15 +16,15 @@ function WorkoutItem({id, name, time, date, exercises, user, currentUser}) {
         .then(data => setReviews(data))
     }, []);
 
-    const renderExercises = exercises.map(exercise => {
-        return (
-            <p key={exercise.id}>{exercise}</p>
-        )
-    });
-
     function handleShowClick() {
         setShowReviews(!showReviews);
     }
+
+    const renderExercises = exercises.map((exercise, index) => {
+        return (
+            <ExerciseItem key={index} exercise={exercise} />
+        )
+    });
 
     const renderReviews = reviews.map(review => {
         return(
@@ -48,7 +49,7 @@ function WorkoutItem({id, name, time, date, exercises, user, currentUser}) {
                 </p>
                 <hr></hr>
                 <div className="list">
-                    Exercises completed:<br></br>
+                    Exercises completed:<br></br><br></br>
                     {renderExercises}
                 </div>
                 <div className="list">
@@ -57,7 +58,16 @@ function WorkoutItem({id, name, time, date, exercises, user, currentUser}) {
                     <AddReviewForm currentUser={currentUser} workout_id={id} reviews={reviews} setReviews={setReviews} /><br></br><br></br>
                     {showReviews ? renderReviews : null}
                 </div>
-                <AddWorkoutListForm currentUser={currentUser} /><br></br><br></br>
+                <AddWorkoutListForm 
+                    name={name}
+                    time={time}
+                    exercises={exercises}
+                    user={user}
+                    currentUser={currentUser} 
+                    workouts={workouts} 
+                    setWorkouts={setWorkouts} 
+                    onWorkoutSubmit={onWorkoutSubmit}
+                /><br></br><br></br>
                 <footer className="blockquote-footer">
                     Created by: {user}
                 </footer>

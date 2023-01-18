@@ -10,6 +10,7 @@ function SignupForm({setCurrentUser, setGoals}) {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [monthlyGoal, setMonthlyGoal] = useState("");
     const [errors, setErrors] = useState([]);
+    const date = new Date();
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -21,7 +22,9 @@ function SignupForm({setCurrentUser, setGoals}) {
             username: username, 
             password: password,
             monthly_goal: monthlyGoal,
-            current: 0
+            current: 0,
+            month: date.getMonth() + 1,
+            year: date.getFullYear()
         }
 
         fetch('/users', {
@@ -36,9 +39,11 @@ function SignupForm({setCurrentUser, setGoals}) {
                     setGoals([])
                 })
             } else {
-                res.json().then(e => setErrors([...e.errors]))
+                res.json().then(e => setErrors([e.errors]))
             }
         })
+
+        history.push('/');
 
     }
 

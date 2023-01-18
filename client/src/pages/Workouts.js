@@ -3,7 +3,7 @@ import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
 import Button from 'react-bootstrap/Button';
 
-function Workouts({currentUser, workouts, setWorkouts}) {
+function Workouts({currentUser, setCurrentUser, workouts, setWorkouts}) {
     const [showAll, setShowAll] = useState(false);
     const [allWorkouts, setAllWorkouts] = useState([]);
 
@@ -17,6 +17,20 @@ function Workouts({currentUser, workouts, setWorkouts}) {
         setShowAll(!showAll)
     }
 
+    function handleWorkoutSubmit(date) {
+        if (parseInt(date.substr(5,2)) === currentUser.month && parseInt(date.substr(0,4)) === currentUser.year) {
+            fetch(`users/${currentUser.id}`, {
+                method: "PATCH",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    current: currentUser.current + 1
+                })
+            })
+            .then(res => res.json())
+            .then(data => setCurrentUser(data))
+        }
+    }
+
     function renderWorkouts(workoutList) {
         return workoutList.map(workout => {
             return <WorkoutItem 
@@ -28,6 +42,9 @@ function Workouts({currentUser, workouts, setWorkouts}) {
                             exercises={workout.exercises}
                             user={workout.username}
                             currentUser={currentUser}
+                            workouts={workouts}
+                            setWorkouts={setWorkouts}
+                            onWorkoutSubmit={handleWorkoutSubmit}
             />
         });
     }
@@ -40,9 +57,8 @@ function Workouts({currentUser, workouts, setWorkouts}) {
             <WorkoutForm 
                 currentUser={currentUser} 
                 workouts={workouts} 
-                setWorkouts={setWorkouts} 
-                allWorkouts={allWorkouts} 
-                setAllWorkouts={setAllWorkouts}
+                setWorkouts={setWorkouts}
+                onWorkoutSubmit={handleWorkoutSubmit}
             />
         </div>
     );

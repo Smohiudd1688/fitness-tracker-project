@@ -13,9 +13,6 @@ function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged, set
             monthly_goal: currentUser.monthly_goal
         }
 
-        console.log(user);
-        console.log(currentUser);
-
         fetch(`/users/${currentUser.id}`, {
             method: "PATCH",
             headers: {"Content-Type":"application/json"},
@@ -23,8 +20,6 @@ function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged, set
         })
         .then(res => res.json())
         .then(data => setCurrentUser(data));
-
-        //console.log(currentUser);
     }
 
     function handleLogout() {
