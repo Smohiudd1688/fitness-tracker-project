@@ -1,9 +1,11 @@
 import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
 
 function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+    const history = useHistory();
 
     function handleShowSubmit(event) {
         event.preventDefault();
@@ -31,6 +33,7 @@ function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
         })
 
         setIsLogged(true);
+        history.push("/")
     }
 
     function handleUsernameChange(event) {
