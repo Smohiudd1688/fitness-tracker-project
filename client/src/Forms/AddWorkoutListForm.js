@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
-function AddWorkoutListForm({name, time, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
+function AddWorkoutListForm({id, name, time, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
     const [isCompleteClick, setIsCompleteClick] = useState(false);
     const [date, setDate] = useState(new Date());
 
@@ -17,31 +17,25 @@ function AddWorkoutListForm({name, time, exercises, user, currentUser, workouts,
 
     function handleSubmit(event) {
         event.preventDefault();
-        setIsCompleteClick(false);
 
-        const workout = {
-            title: name,
-            time: time,
-            date: date,
-            exercises: exercises,
-            username: user,
-            user_id: currentUser.id
+        const completedWorkout = {
+            user_id: currentUser.id,
+            workout_id: id
         }
 
-        fetch("/workouts", {
+        fetch("/user_workouts", {
             method: "POST",
             headers: {"Content-Type":"application/json"},
-            body: JSON.stringify(workout)
+            body: JSON.stringify(completedWorkout)
         })
-        .then(res => {
-            if(res.ok) {
-                res.json().then(resWorkout => {
-                    setWorkouts([...workouts, resWorkout])
-                })
-            }
+        .then(res => res.json())
+        .then(data => {
+            setWorkouts([...workouts, data]);
+            onWorkoutSubmit(data.created_at);
+
         });
 
-        onWorkoutSubmit(date);
+        setIsCompleteClick(false);
     }
 
     return(

@@ -13,6 +13,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [goals, setGoals] = useState([]);
   const [workouts, setWorkouts] = useState([]);
+  const [completedWorkouts, setCompletedWorkouts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ function App() {
             setCurrentUser(currentUser)
             setGoals(currentUser.goals)
             setWorkouts(currentUser.workouts)
+            setCompletedWorkouts(currentUser.completed_workouts)
           });
          } else {
           setIsLogged(false);
@@ -58,6 +60,8 @@ function App() {
               setCurrentUser={setCurrentUser} 
               workouts={workouts} 
               setWorkouts={setWorkouts}
+              completedWorkouts={completedWorkouts}
+              setCompletedWorkouts={setCompletedWorkouts}
             />
           </Route>
           <Route path="/account" >

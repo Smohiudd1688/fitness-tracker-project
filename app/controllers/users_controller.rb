@@ -13,7 +13,8 @@ skip_before_action :authorized, only: :create
         user = User.find(session[:user_id])
         goals = user.goals
         workouts = user.workouts
-        render json: user, include: [:workouts, :goals], status: :ok
+        completed_workouts = user.completed_workouts
+        render json: user, include: [:workouts, :completed_workouts, :goals], status: :ok
     end
 
     def update

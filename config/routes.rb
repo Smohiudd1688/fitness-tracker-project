@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :workouts, only: [:create]
   resources :goals, only: [:create, :index, :update, :destroy]
   resources :reviews, only: [:create]
+  resources :user_workouts, only: [:create]
 
   resources :workouts, only: [:show] do
     resources :reviews, only: [:index]

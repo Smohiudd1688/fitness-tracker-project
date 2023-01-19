@@ -3,7 +3,7 @@ import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
 import Button from 'react-bootstrap/Button';
 
-function Workouts({currentUser, setCurrentUser, workouts, setWorkouts}) {
+function Workouts({currentUser, setCurrentUser, workouts, setWorkouts, completedWorkouts, setCompletedWorkouts,}) {
     const [showAll, setShowAll] = useState(false);
     const [allWorkouts, setAllWorkouts] = useState([]);
 
@@ -27,14 +27,32 @@ function Workouts({currentUser, setCurrentUser, workouts, setWorkouts}) {
                 })
             })
             .then(res => res.json())
-            .then(data => setCurrentUser(data))
+            .then(data => {setCurrentUser(data)})
         }
     }
 
+    const renderCompleted = completedWorkouts.map((workout, index) => {
+        return <WorkoutItem 
+                            key={index}
+                            id={workout.id}
+                            name={workout.title}
+                            time={workout.time}
+                            date={workout.created_at.substr(0,10)}
+                            exercises={workout.exercises}
+                            user={workout.username}
+                            currentUser={currentUser}
+                            workouts={workouts}
+                            setWorkouts={setWorkouts}
+                            completedWorkouts={completedWorkouts}
+                            setCompletedWorkouts={setCompletedWorkouts}
+                            onWorkoutSubmit={handleWorkoutSubmit}
+            />
+    })
+
     function renderWorkouts(workoutList) {
-        return workoutList.map(workout => {
+        return workoutList.map((workout, index) => {
             return <WorkoutItem 
-                            key={workout.id}
+                            key={index}
                             id={workout.id}
                             name={workout.title}
                             time={workout.time}
@@ -44,6 +62,8 @@ function Workouts({currentUser, setCurrentUser, workouts, setWorkouts}) {
                             currentUser={currentUser}
                             workouts={workouts}
                             setWorkouts={setWorkouts}
+                            completedWorkouts={completedWorkouts}
+                            setCompletedWorkouts={setCompletedWorkouts}
                             onWorkoutSubmit={handleWorkoutSubmit}
             />
         });
@@ -52,8 +72,9 @@ function Workouts({currentUser, setCurrentUser, workouts, setWorkouts}) {
     return (
         <div>
             <h1 className="pageH">Workout Tracker</h1><br></br>
-            <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button></div>
+            <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "Find New Workout"}</Button></div>
             {showAll ? renderWorkouts(allWorkouts) : renderWorkouts(workouts)}
+            {showAll ? null : renderCompleted}
             <WorkoutForm 
                 currentUser={currentUser} 
                 workouts={workouts} 

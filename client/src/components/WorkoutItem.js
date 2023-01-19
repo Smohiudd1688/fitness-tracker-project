@@ -6,7 +6,7 @@ import ReviewItem from "./ReviewItem";
 import Button from 'react-bootstrap/Button';
 import ExerciseItem from "./ExerciseItem";
 
-function WorkoutItem({id, name, time, date, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
+function WorkoutItem({id, name, time, date, exercises, user, currentUser, workouts, setWorkouts, completedWorkouts, setCompletedWorkouts, onWorkoutSubmit}) {
     const [showReviews, setShowReviews] = useState(false);
     const [reviews, setReviews] = useState([]);
 
@@ -18,6 +18,26 @@ function WorkoutItem({id, name, time, date, exercises, user, currentUser, workou
 
     function handleShowClick() {
         setShowReviews(!showReviews);
+    }
+
+    function handleCompleteClick(event) {
+        event.preventDefault();
+
+        const completedWorkout = {
+            user_id: currentUser.id,
+            workout_id: id
+        }
+
+        fetch("/user_workouts", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(completedWorkout)
+        })
+        .then(res => res.json())
+        .then(data => {
+            setCompletedWorkouts([...completedWorkouts, data]);
+            onWorkoutSubmit(data.created_at);
+        });
     }
 
     const renderExercises = exercises.map((exercise, index) => {
@@ -58,16 +78,7 @@ function WorkoutItem({id, name, time, date, exercises, user, currentUser, workou
                     <AddReviewForm currentUser={currentUser} workout_id={id} reviews={reviews} setReviews={setReviews} /><br></br><br></br>
                     {showReviews ? renderReviews : null}
                 </div>
-                <AddWorkoutListForm 
-                    name={name}
-                    time={time}
-                    exercises={exercises}
-                    user={user}
-                    currentUser={currentUser} 
-                    workouts={workouts} 
-                    setWorkouts={setWorkouts} 
-                    onWorkoutSubmit={onWorkoutSubmit}
-                /><br></br><br></br>
+                <Button onClick={handleCompleteClick} bg="primary">I Completed this Workout!</Button><br></br><br></br>
                 <footer className="blockquote-footer">
                     Created by: {user}
                 </footer>
