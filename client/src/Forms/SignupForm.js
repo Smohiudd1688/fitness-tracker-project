@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
-function SignupForm({setCurrentUser, setGoals}) {
+function SignupForm({setCurrentUser, setGoals, setIsLogged}) {
     const history = useHistory();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
     const [monthlyGoal, setMonthlyGoal] = useState("");
     const [errors, setErrors] = useState([]);
     const date = new Date();
@@ -37,9 +36,10 @@ function SignupForm({setCurrentUser, setGoals}) {
                 res.json().then(user => {
                     setCurrentUser(user)
                     setGoals([])
+                    setIsLogged(true);
                 })
             } else {
-                res.json().then(e => setErrors([e.errors]))
+                res.json().then(e => setErrors([...e.errors]))
             }
         })
 
@@ -61,10 +61,6 @@ function SignupForm({setCurrentUser, setGoals}) {
 
     function handlePassChange(event) {
         setPassword(event.target.value);
-    }
-
-    function handleConfirmPassChange(event) {
-        setConfirmPassword(event.target.value);
     }
 
     function handleMonthlyGoalChange(event) {
@@ -90,11 +86,9 @@ function SignupForm({setCurrentUser, setGoals}) {
                 <input onChange={handleUsernameChange} type="text" id="username" name="username" value={username} /><br></br><br></br>
                 <label htmlFor="pass">Password: </label>
                 <input onChange={handlePassChange} type="password" id="pass" name="pass" value={password} /><br></br><br></br>
-                <label htmlFor="confirmPass">Confirm Password: </label>
-                <input onChange={handleConfirmPassChange} type="password" id="confirmPass" name="confirmPass" value={confirmPassword} /><br></br><br></br>
                 <label htmlFor="monthlyGoal">Monthly Workout Goal: </label>
                 <input onChange={handleMonthlyGoalChange} type="text" id="monthlyGoal" name="monthlyGoal" value={monthlyGoal} /><br></br><br></br>
-                <input type="submit" />
+                <input type="submit" value="Sign Up"/>
             </form>
         </div>
     );

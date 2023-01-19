@@ -24,15 +24,15 @@ function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
         .then(res => {
             if(res.ok) {
                 res.json().then(user => {
+                    setIsLogged(true);
                     setCurrentUser(user)
                     setGoals(user.goals)
                 })
             } else {
-                res.json().then(e => setErrors(e.errors))
+                res.json().then(e => setErrors([e.errors]))
             }
         })
 
-        setIsLogged(true);
         history.push("/")
     }
 
@@ -59,7 +59,7 @@ function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
                 <input onChange={handleUsernameChange} type="text" id="username" name="username" value={username} /><br></br><br></br>
                 <label htmlFor="pass">Password: </label>
                 <input onChange={handlePassChange} type="password" id="pass" name="pass" value={password} /><br></br><br></br>
-                <input type="submit" />
+                <input type="submit" value="Login"/>
             </form>
         </div>
     );

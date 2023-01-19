@@ -17,6 +17,7 @@ function App() {
 
   useEffect(() => {
     // auto-login
+    setIsLogged(true);
     fetch("/me").then((r) => {
       if (r.ok) {
          r.json().then((currentUser) => {
@@ -24,20 +25,16 @@ function App() {
             setGoals(currentUser.goals)
             setWorkouts(currentUser.workouts)
           });
-        }
+         } else {
+          setIsLogged(false);
+         }
       });
-      /*.then(() => {
-        if (!currentUser && !isLogged) {
-          return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
-        } else if (!currentUser && isLogged) {
-          return <Loading />
-        }
-      })*/
 
   }, []);
 
-
-  if (!currentUser) {
+  if (!currentUser && isLogged) {
+    return <Loading />
+  } else if (!currentUser && !isLogged) {
     return <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
   }
 
@@ -53,7 +50,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/login" >
-            <Login />
+            <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/workouts" >
             <Workouts 

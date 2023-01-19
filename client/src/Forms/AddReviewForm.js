@@ -4,7 +4,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
 function AddReviewForm({currentUser, workout_id, reviews, setReviews}) {
-    const [errors, setErrors] = useState([]);
     const [isAddClick, setIsAddClick] = useState(false);
     const [difficulty, setDifficulty] = useState("");
     const [wouldRepeat, setWouldRepeat] = useState("");
@@ -29,7 +28,6 @@ function AddReviewForm({currentUser, workout_id, reviews, setReviews}) {
     function handleSubmit(event) {
         event.preventDefault();
         setIsAddClick(!isAddClick);
-        setErrors([]);
 
         const review = {
             difficulty: difficulty,
@@ -50,8 +48,6 @@ function AddReviewForm({currentUser, workout_id, reviews, setReviews}) {
                 res.json().then(resReview => {
                     setReviews([...reviews, resReview])
                 })
-            } else {
-                res.json().then(e => setErrors(e.errors))
             }
         })
 

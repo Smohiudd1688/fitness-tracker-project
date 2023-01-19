@@ -11,7 +11,7 @@ function UpdateGoalForm({starting, goal, onUpdateSubmit, id}) {
         event.preventDefault();
         let isComplete = false;
 
-        if(starting > goal && updatedCurrent <= goal || starting < goal && updatedCurrent >= goal) {
+        if((starting > goal && updatedCurrent <= goal) || (starting < goal && updatedCurrent >= goal)) {
             isComplete = true;
         }
 

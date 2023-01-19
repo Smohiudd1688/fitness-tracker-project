@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,7 +8,6 @@ import GoalForm from "../Forms/GoalForm";
 
 
 function Home({currentUser, setCurrentUser, goals, setGoals}) {
-    console.log(currentUser);
     useEffect(() => {
         const date = new Date();
         const month = date.getMonth() + 1;

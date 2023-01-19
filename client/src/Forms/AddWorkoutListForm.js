@@ -6,7 +6,6 @@ import Popover from 'react-bootstrap/Popover';
 function AddWorkoutListForm({name, time, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
     const [isCompleteClick, setIsCompleteClick] = useState(false);
     const [date, setDate] = useState(new Date());
-    const [errors, setErrors] = useState([]);
 
     function handleDateChange(event) {
         setDate(event.target.value);
@@ -39,8 +38,6 @@ function AddWorkoutListForm({name, time, exercises, user, currentUser, workouts,
                 res.json().then(resWorkout => {
                     setWorkouts([...workouts, resWorkout])
                 })
-            } else {
-                res.json().then(e => setErrors(e.errors))
             }
         });
 
