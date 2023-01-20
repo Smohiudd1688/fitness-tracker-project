@@ -37,7 +37,7 @@ a custom created goal.
 4. You are now ready to use the application!
 
 ## Usage
-To use this application you can go to the *[website](https://fitness-tracker-app.onrender.com/). A user can sign up by creating an account, once the account is created they can create goals and keep track of their progress on the home page. On the workout page you can track your workouts or browse for new workout that were created by other users. You may also leave reviews on the workouts that you tried out. On the account page a user can look at their information and update it
+To use this application you can go to the [website](https://fitness-tracker-app.onrender.com/). A user can sign up by creating an account, once the account is created they can create goals and keep track of their progress on the home page. On the workout page you can track your workouts or browse for new workout that were created by other users. You may also leave reviews on the workouts that you tried out. On the account page a user can look at their information and update it
 
 ## Project Status
 This application is completed.
