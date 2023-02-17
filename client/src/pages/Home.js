@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +7,9 @@ import GoalItem from "../components/GoalItem";
 import GoalForm from "../Forms/GoalForm";
 
 
-function Home({currentUser, setCurrentUser, goals, setGoals}) {
+function Home({currentUser, setCurrentUser}) {
+    const [goals, setGoals] = useState([]);
+
     useEffect(() => {
         const date = new Date();
         const month = date.getMonth() + 1;
@@ -26,6 +28,10 @@ function Home({currentUser, setCurrentUser, goals, setGoals}) {
             .then(res => res.json())
             .then(data => setCurrentUser(data))
         }
+
+        fetch(`/goals`)
+        .then(res => res.json())
+        .then(data => setGoals(data))
     }, []);
 
     const renderGoals = goals.map(goal => {
@@ -63,7 +69,7 @@ function Home({currentUser, setCurrentUser, goals, setGoals}) {
                 {renderGoals}
             </Row>
             <Row>
-                <GoalForm userId={currentUser.id} goals={goals} setGoals={setGoals} />
+                <GoalForm goals={goals} setGoals={setGoals} />
             </Row>
         </Container>
     );

@@ -13,7 +13,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [goals, setGoals] = useState([]);
   const [workouts, setWorkouts] = useState([]);
-  const [completedWorkouts, setCompletedWorkouts] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -23,9 +22,6 @@ function App() {
       if (r.ok) {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
-            setGoals(currentUser.goals)
-            setWorkouts(currentUser.workouts)
-            setCompletedWorkouts(currentUser.completed_workouts)
           });
          } else {
           setIsLogged(false);
@@ -37,7 +33,7 @@ function App() {
   if (!currentUser && isLogged) {
     return <Loading />
   } else if (!currentUser && !isLogged) {
-    return <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
+    return <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
   }
 
   function handleAccountChange(property, value) {
@@ -52,7 +48,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/login" >
-            <Login setGoals={setGoals} setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
+            <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/workouts" >
             <Workouts 
@@ -60,8 +56,6 @@ function App() {
               setCurrentUser={setCurrentUser} 
               workouts={workouts} 
               setWorkouts={setWorkouts}
-              completedWorkouts={completedWorkouts}
-              setCompletedWorkouts={setCompletedWorkouts}
             />
           </Route>
           <Route path="/account" >
@@ -69,7 +63,6 @@ function App() {
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
               setIsLogged={setIsLogged}
-              setGoals={setGoals}
               onChangeAccount={handleAccountChange}
             />
           </Route>
@@ -77,8 +70,6 @@ function App() {
             <Home
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
-              goals={goals}
-              setGoals={setGoals}
             />
           </Route>
           <Route path="*">

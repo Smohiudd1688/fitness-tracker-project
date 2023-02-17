@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
-function SignupForm({setCurrentUser, setGoals, setIsLogged}) {
+function SignupForm({setCurrentUser, setIsLogged}) {
     const history = useHistory();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -35,7 +35,6 @@ function SignupForm({setCurrentUser, setGoals, setIsLogged}) {
             if(res.ok) {
                 res.json().then(user => {
                     setCurrentUser(user)
-                    setGoals([])
                     setIsLogged(true);
                 })
             } else {

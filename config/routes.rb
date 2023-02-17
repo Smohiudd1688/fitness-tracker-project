@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
   resources :users, only: [:show, :create, :update]
-  resources :workouts, only: [:create]
+  resources :workouts, only: [:create, :index, :show]
   resources :goals, only: [:create, :index, :update, :destroy]
-  resources :reviews, only: [:create]
-  resources :user_workouts, only: [:create]
-
-  resources :workouts, only: [:show] do
-    resources :reviews, only: [:index]
-  end
+  resources :user_workouts, only: [:create, :index]
 
   resources :users, only: [:show] do
     resources :workouts, only: [:index]
+  end
+
+  resources :workouts, only: [:show] do
+    resources :user_workouts, only: [:show, :index]
   end
 
   post "/login", to: "sessions#create"

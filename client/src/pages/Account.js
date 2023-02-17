@@ -2,7 +2,7 @@ import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged, setGoals}) {
+function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
     function handleUpdate(e) {
         e.preventDefault();
 
@@ -31,8 +31,6 @@ function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged, set
               setIsLogged(false);
             }
         })
-
-        setGoals([]);
     }
 
 

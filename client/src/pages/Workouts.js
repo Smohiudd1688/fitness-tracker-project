@@ -1,16 +1,24 @@
 import React, {useState, useEffect} from "react";
 import WorkoutForm from "../Forms/WorkoutForm";
 import WorkoutItem from "../components/WorkoutItem";
+import MyWorkoutItem from "../components/MyWorkoutItem";
 import Button from 'react-bootstrap/Button';
 
-function Workouts({currentUser, setCurrentUser, workouts, setWorkouts, completedWorkouts, setCompletedWorkouts,}) {
+function Workouts({currentUser, setCurrentUser}) {
     const [showAll, setShowAll] = useState(false);
+    const [workouts, setWorkouts] = useState([]);
     const [allWorkouts, setAllWorkouts] = useState([]);
 
     useEffect(() => {
-        fetch(`users/${currentUser.id}/workouts`)
+        fetch(`/workouts`)
         .then(res => res.json())
-        .then(data => setAllWorkouts(data))
+        .then(data => setWorkouts(data))
+
+        fetch(`/user_workouts`)
+        .then(res => res.json())
+        .then(data => {
+            setAllWorkouts(data)
+        })
     }, []);
 
     function handleClick() {
@@ -31,56 +39,48 @@ function Workouts({currentUser, setCurrentUser, workouts, setWorkouts, completed
         }
     }
 
-    const renderCompleted = completedWorkouts.map((workout, index) => {
-        return <WorkoutItem 
-                            key={index}
-                            id={workout.id}
-                            name={workout.title}
-                            time={workout.time}
-                            date={workout.created_at.substr(0,10)}
-                            exercises={workout.exercises}
-                            user={workout.username}
-                            currentUser={currentUser}
-                            workouts={workouts}
-                            setWorkouts={setWorkouts}
-                            completedWorkouts={completedWorkouts}
-                            setCompletedWorkouts={setCompletedWorkouts}
-                            onWorkoutSubmit={handleWorkoutSubmit}
-            />
-    })
+    const renderMyWorkouts = workouts.map((workoutItem, index) => {
+        return <MyWorkoutItem 
+            key={index}
+            id={workoutItem.id}
+            name={workoutItem.title}
+            exercises={workoutItem.exercises}
+            onWorkoutSubmit={handleWorkoutSubmit}
+        />
+    });
 
-    function renderWorkouts(workoutList) {
-        return workoutList.map((workout, index) => {
-            return <WorkoutItem 
-                            key={index}
-                            id={workout.id}
-                            name={workout.title}
-                            time={workout.time}
-                            date={workout.date}
-                            exercises={workout.exercises}
-                            user={workout.username}
-                            currentUser={currentUser}
-                            workouts={workouts}
-                            setWorkouts={setWorkouts}
-                            completedWorkouts={completedWorkouts}
-                            setCompletedWorkouts={setCompletedWorkouts}
-                            onWorkoutSubmit={handleWorkoutSubmit}
+    const renderAllWorkouts = allWorkouts.map((workoutItem, index) => {
+        const workoutId = workoutItem.workout_id
+        const name = workoutItem.workout.title;
+        const time = workoutItem.time;
+        const date = workoutItem.date;
+        const exercises = workoutItem.workout.exercises;
+        
+        return <WorkoutItem 
+                key={index}
+                id={workoutId}
+                name={name}
+                time={time}
+                date={date} 
+                exercises={exercises}
+                onWorkoutSubmit={handleWorkoutSubmit}
             />
-        });
-    }
+    });
+
 
     return (
         <div>
             <h1 className="pageH">Workout Tracker</h1><br></br>
-            <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "Find New Workout"}</Button></div>
-            {showAll ? renderWorkouts(allWorkouts) : renderWorkouts(workouts)}
-            {showAll ? null : renderCompleted}
-            <WorkoutForm 
+            <div className="buttDiv"><Button className="butt" onClick={handleClick}>{showAll ? "My Workouts" : "All Workouts"}</Button></div>
+            {showAll ? renderAllWorkouts : renderMyWorkouts}
+            {showAll ? null : <WorkoutForm 
                 currentUser={currentUser} 
                 workouts={workouts} 
                 setWorkouts={setWorkouts}
+                allWorkouts={allWorkouts}
+                setAllWorkouts={setAllWorkouts}
                 onWorkoutSubmit={handleWorkoutSubmit}
-            />
+            />}
         </div>
     );
 }

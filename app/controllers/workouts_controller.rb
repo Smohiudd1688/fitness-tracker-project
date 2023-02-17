@@ -8,14 +8,15 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     end
 
     def index
-        workouts = Workout.where.not(user_id: params[:user_id])
+        user = User.find(session[:user_id])
+        workouts = user.workouts
         render json: workouts, status: :ok
     end
 
     private
 
     def workout_params
-        params.permit(:title, :time, :date, :user_id, :username, exercises: [])
+        params.permit(:title, exercises: [])
     end
 
     def render_unprocessable_entity_response(invalid)

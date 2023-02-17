@@ -3,13 +3,14 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_resp
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def create
-        goal = Goal.create!(goal_params)
+        user = User.find(session[:user_id])
+        goal = user.goals.create!(goal_params)
         render json: goal, status: :created
     end
 
     def index
-        goals = Goal.all
-        render json: goals, status: :ok
+        user = User.find(session[:user_id])
+        render json: user.goals, status: :ok
     end
 
     def update
@@ -28,7 +29,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     private
 
     def goal_params
-        params.permit(:title, :starting, :current, :completed, :goal, :end_date, :user_id)
+        params.permit(:title, :starting, :current, :completed, :goal, :end_date)
     end
 
     def render_unprocessable_entity_response(invalid)

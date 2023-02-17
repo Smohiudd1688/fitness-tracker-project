@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function GoalForm({userId, goals, setGoals}) {
+function GoalForm({goals, setGoals}) {
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
     const [starting, setStarting] = useState("");
@@ -20,7 +20,6 @@ function GoalForm({userId, goals, setGoals}) {
             completed: false,
             goal: goal,
             end_date: endDate,
-            user_id: userId
         }
 
         fetch('/goals', {

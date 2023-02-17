@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
-function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
+function LoginForm({setCurrentUser, setIsLogged}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
@@ -26,7 +26,6 @@ function LoginForm({setCurrentUser, setIsLogged, setGoals}) {
                 res.json().then(user => {
                     setIsLogged(true);
                     setCurrentUser(user)
-                    setGoals(user.goals)
                 })
             } else {
                 res.json().then(e => setErrors([e.errors]))

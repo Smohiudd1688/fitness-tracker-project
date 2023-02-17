@@ -3,15 +3,20 @@ rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_resp
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
     def create
-        user_workout = UserWorkout.create!(user_workout_params)
-        workout = Workout.find_by(id: params[:workout_id])
-        render json: workout, status: :ok
+        user = User.find(session[:user_id])
+        user_workout = user.user_workouts.create!(user_workout_params)
+        render json: user_workout, include: :workout, status: :created
+    end
+
+    def index
+        user_workouts = UserWorkout.all
+        render json: user_workouts, include: :workout, status: :ok
     end
 
     private
 
     def user_workout_params
-        params.permit(:user_id, :workout_id)
+        params.permit(:time, :date, :workout_id)
     end
 
     def render_unprocessable_entity_response(invalid)
@@ -19,6 +24,6 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     end
 
     def render_not_found
-        render json: {errors: "Goal not found"}, status: :not_found
+        render json: {errors: "User-workout not found"}, status: :not_found
     end
 end

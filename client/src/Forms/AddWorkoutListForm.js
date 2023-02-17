@@ -3,12 +3,17 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
-function AddWorkoutListForm({id, name, time, exercises, user, currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
+function AddWorkoutListForm({id, currentUser, workouts, setWorkouts, onWorkoutSubmit, onCompleteWorkout}) {
     const [isCompleteClick, setIsCompleteClick] = useState(false);
     const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState("");
 
     function handleDateChange(event) {
         setDate(event.target.value);
+    }
+
+    function handleTimeChange(event) {
+        setTime(event.target.value);
     }
 
     function handleClick() {
@@ -19,8 +24,9 @@ function AddWorkoutListForm({id, name, time, exercises, user, currentUser, worko
         event.preventDefault();
 
         const completedWorkout = {
-            user_id: currentUser.id,
-            workout_id: id
+            workout_id: id,
+            date: date,
+            time: time
         }
 
         fetch("/user_workouts", {
@@ -30,7 +36,7 @@ function AddWorkoutListForm({id, name, time, exercises, user, currentUser, worko
         })
         .then(res => res.json())
         .then(data => {
-            setWorkouts([...workouts, data]);
+            onCompleteWorkout(data);
             onWorkoutSubmit(data.created_at);
 
         });
@@ -49,8 +55,10 @@ function AddWorkoutListForm({id, name, time, exercises, user, currentUser, worko
                     <Popover.Header as="h3">{`Add this Workout`}</Popover.Header>
                     <Popover.Body>
                         <form onSubmit={handleSubmit}>
-                            <label htmlFor="dateW">When did you complete the workout? </label>
+                            <label htmlFor="dateW">Date of Completion: </label>
                             <input onChange={handleDateChange} type="date" id="dateW" name="dateW" selected={date} />
+                            <label htmlFor="time">Duration of Workout in Minutes: </label>
+                            <input onChange={handleTimeChange} type="text" id="time" name="time" value={time} /><br></br><br></br>
                             <input type="submit" />
                         </form>
                     </Popover.Body>

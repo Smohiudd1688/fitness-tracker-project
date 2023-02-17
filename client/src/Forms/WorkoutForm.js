@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
+function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWorkouts, onWorkoutSubmit}) {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
@@ -15,14 +15,9 @@ function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
             return (`${exercise.sets} X ${exercise.reps} ${exercise.name}`);
         });
 
-        console.log(renderExercises);
-
         const workout = {
             title: name,
-            time: time,
-            date: date,
             exercises: renderExercises,
-            username: currentUser.username,
             user_id: currentUser.id
         }
 
@@ -34,10 +29,12 @@ function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
         .then(res => {
             if(res.ok) {
                 res.json().then(resWorkout => {
-                    setWorkouts([...workouts, resWorkout])
+                    setWorkouts([...workouts, resWorkout]);
+                    handleWorkoutCreated(resWorkout);
+                    onWorkoutSubmit(date);
                 })
             } else {
-                res.json().then(e => setErrors(e.errors))
+                res.json().then(e => setErrors(e.errors));
             }
         });
 
@@ -46,7 +43,30 @@ function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
         setDate("");
         setExercises([]);
 
-        onWorkoutSubmit(date);
+    }
+
+    function handleWorkoutCreated(workout) {
+        const userWorkout = {
+            time: time,
+            date: date,
+            workout_id: workout.id
+        }
+
+        fetch("/user_workouts", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(userWorkout)
+        })
+        .then(res => {
+            if(res.ok) {
+                res.json().then(res => {
+                    console.log(res);
+                    console.log(workout);
+                })
+            } else {
+                res.json().then(e => setErrors(e.errors));
+            }
+        });
     }
 
     function handleNameChange(event) {
@@ -94,7 +114,7 @@ function WorkoutForm({currentUser, workouts, setWorkouts, onWorkoutSubmit}) {
                 <h3>Add a Workout</h3><br></br>
                 <label htmlFor="name">Name of Workout: </label>
                 <input onChange={handleNameChange} type="text" id="name" name="name" value={name} /><br></br><br></br>
-                <label htmlFor="goal">Duration of Workout in Minutes: </label>
+                <label htmlFor="time">Duration of Workout in Minutes: </label>
                 <input onChange={handleTimeChange} type="text" id="time" name="time" value={time} /><br></br><br></br>
                 <hr></hr>
                 {
