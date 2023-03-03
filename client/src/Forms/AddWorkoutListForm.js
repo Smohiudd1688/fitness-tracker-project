@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
-function AddWorkoutListForm({id, currentUser, workouts, setWorkouts, onWorkoutSubmit, onCompleteWorkout}) {
+function AddWorkoutListForm({id, onWorkoutSubmit}) {
     const [isCompleteClick, setIsCompleteClick] = useState(false);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState("");
@@ -36,9 +36,7 @@ function AddWorkoutListForm({id, currentUser, workouts, setWorkouts, onWorkoutSu
         })
         .then(res => res.json())
         .then(data => {
-            onCompleteWorkout(data);
-            onWorkoutSubmit(data.created_at);
-
+            onWorkoutSubmit(data.date, data);
         });
 
         setIsCompleteClick(false);

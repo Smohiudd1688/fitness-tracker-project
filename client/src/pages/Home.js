@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,8 +7,7 @@ import GoalItem from "../components/GoalItem";
 import GoalForm from "../Forms/GoalForm";
 
 
-function Home({currentUser, setCurrentUser}) {
-    const [goals, setGoals] = useState([]);
+function Home({goals, setGoals, currentUser, setCurrentUser}) {
 
     useEffect(() => {
         const date = new Date();
@@ -28,10 +27,6 @@ function Home({currentUser, setCurrentUser}) {
             .then(res => res.json())
             .then(data => setCurrentUser(data))
         }
-
-        fetch(`/goals`)
-        .then(res => res.json())
-        .then(data => setGoals(data))
     }, []);
 
     const renderGoals = goals.map(goal => {

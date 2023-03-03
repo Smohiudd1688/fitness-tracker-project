@@ -1,13 +1,11 @@
 class SessionsController < ApplicationController
-    rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
     skip_before_action :authorized, only: :create
 
     def create
         user = User.find_by(username: params[:username])
-        goals = user.goals
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
-            render json: user, include: :goals, status: :created
+            render json: user, status: :created
         else
             render json: {errors: "Invalid username or password"}, status: :unauthorized
         end

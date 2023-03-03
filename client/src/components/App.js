@@ -22,6 +22,8 @@ function App() {
       if (r.ok) {
          r.json().then((currentUser) => {
             setCurrentUser(currentUser)
+            setWorkouts(currentUser.user_workouts)
+            setGoals(currentUser.goals)
           });
          } else {
           setIsLogged(false);
@@ -68,6 +70,8 @@ function App() {
           </Route>
           <Route exact path="/" >
             <Home
+              goals={goals}
+              setGoals={setGoals}
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
             />

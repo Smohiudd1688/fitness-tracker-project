@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWorkouts, onWorkoutSubmit}) {
+function WorkoutForm({allWorkouts, setAllWorkouts, onWorkoutSubmit}) {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
@@ -18,7 +18,8 @@ function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWor
         const workout = {
             title: name,
             exercises: renderExercises,
-            user_id: currentUser.id
+            time: time,
+            date: date,
         }
 
         fetch("/workouts", {
@@ -29,9 +30,8 @@ function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWor
         .then(res => {
             if(res.ok) {
                 res.json().then(resWorkout => {
-                    setWorkouts([...workouts, resWorkout]);
-                    handleWorkoutCreated(resWorkout);
-                    onWorkoutSubmit(date);
+                    setAllWorkouts([...allWorkouts, resWorkout.workout]);
+                    onWorkoutSubmit(date, resWorkout);
                 })
             } else {
                 res.json().then(e => setErrors(e.errors));
@@ -43,30 +43,6 @@ function WorkoutForm({currentUser, workouts, setWorkouts, allWorkouts, setAllWor
         setDate("");
         setExercises([]);
 
-    }
-
-    function handleWorkoutCreated(workout) {
-        const userWorkout = {
-            time: time,
-            date: date,
-            workout_id: workout.id
-        }
-
-        fetch("/user_workouts", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify(userWorkout)
-        })
-        .then(res => {
-            if(res.ok) {
-                res.json().then(res => {
-                    console.log(res);
-                    console.log(workout);
-                })
-            } else {
-                res.json().then(e => setErrors(e.errors));
-            }
-        });
     }
 
     function handleNameChange(event) {
