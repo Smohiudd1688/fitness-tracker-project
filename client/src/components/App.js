@@ -65,6 +65,8 @@ function App() {
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
               setIsLogged={setIsLogged}
+              setWorkouts={setWorkouts}
+              setGoals={setGoals}
               onChangeAccount={handleAccountChange}
             />
           </Route>

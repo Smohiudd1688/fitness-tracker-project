@@ -2,7 +2,7 @@ import React from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
+function Account({currentUser, onChangeAccount, setCurrentUser, setWorkouts, setGoals, setIsLogged}) {
     function handleUpdate(e) {
         e.preventDefault();
 
@@ -28,6 +28,8 @@ function Account({currentUser, onChangeAccount, setCurrentUser, setIsLogged}) {
         .then((r) => {
             if (r.ok) {
               setCurrentUser(null);
+              setWorkouts([]);
+              setGoals([]);
               setIsLogged(false);
             }
         })
