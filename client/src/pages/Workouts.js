@@ -14,7 +14,7 @@ function Workouts({workouts, setWorkouts, currentUser, setCurrentUser}) {
         .then(data => {
             setAllWorkouts(data)
         })
-    }, []);
+    }, [currentUser]);
 
     function handleClick() {
         setShowAll(!showAll)
