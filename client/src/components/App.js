@@ -52,7 +52,7 @@ function App() {
           <Route path="/login" >
             <Login setIsLogged={setIsLogged} setCurrentUser={setCurrentUser} />
           </Route>
-          <Route path="/workouts" >
+          <Route path="/workout" >
             <Workouts 
               currentUser={currentUser} 
               setCurrentUser={setCurrentUser} 

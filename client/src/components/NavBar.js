@@ -11,7 +11,7 @@ function NavBar({currentUser}) {
           <Navbar.Brand href="/">The Fit Life</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/workouts">Workouts</Nav.Link>
+            <Nav.Link href="/workout">Workouts</Nav.Link>
             <Nav.Link href="/account">Account</Nav.Link>
           </Nav>
           <Navbar.Collapse className="justify-content-end">
